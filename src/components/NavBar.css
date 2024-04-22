@@ -1,0 +1,41 @@
+.navbar {
+    background-color: black;
+    color: white;
+    padding: 20px 20px;
+    font-size: 24px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+.nav-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+}
+
+.home-link {
+    margin-right: auto;
+}
+
+.category-link {
+    margin-right: auto;
+}
+
+.main-content {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    padding: 0px;
+}
+
+.side-content {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    padding: 0;
+}
+
+.sideContent li {
+    margin-left: 20px; /* Adjust spacing between items */
+}
