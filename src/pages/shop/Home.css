@@ -1,0 +1,8 @@
+.shop {
+    display: grid;
+    justify-items: center;
+    grid-auto-flow: dense;
+    padding-left: 80px;
+    padding-right: 80px;
+    background-color:lightgray;
+}

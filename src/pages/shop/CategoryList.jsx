@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import fetchProductsByCategoryName from '../../api/fetchProductsByCategoryName';
+import ProductList from '../../components/ProductList';
 
 const CategoryList = () => {
     const [products, setProducts] = useState([]);
@@ -19,24 +20,16 @@ const CategoryList = () => {
         loadProductsByCategoryName();
     }, [categoryName]);
 
-    console.log('Products in category: ', products);
-    console.log('Category Name: ', categoryName);
-
     return (
         <div>
             <h1>Products in Category: {categoryName}</h1>
             {products && products.length > 0 ? (
-                <ul>
-                    {products.map(product => (
-                        <li key={product.id}>{product.name}</li>
-                    ))}
-                </ul>
+                <ProductList products={products} />
             ) : (
                 <p>No products available for this category.</p>
             )}
         </div>
     );
-    
 };
 
 export default CategoryList;

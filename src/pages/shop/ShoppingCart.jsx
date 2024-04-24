@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
-import './shop.css';
+import './Home.css';
 import { useCart } from '../../context/CartContext';
 import fetchProductById from '../../api/fetchProductById';
 
-const Cart = () => {
+const ShoppingCart = () => {
   const { cart, toggleCartItem } = useCart();
   const [cartProducts, setCartProducts] = useState([]);
 
@@ -56,4 +56,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default ShoppingCart;

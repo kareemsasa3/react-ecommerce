@@ -1,29 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { Heart, ShoppingCart, UserCircle } from 'phosphor-react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { Dropdown } from 'semantic-ui-react'; // Import Dropdown from Semantic UI React
+import { Heart, ShoppingCart, UserCircle } from 'phosphor-react';
+import { Dropdown } from 'semantic-ui-react';
+import fetchCategories from '../api/fetchCategories';
 import "./NavBar.css";
-import Commerce from '@chec/commerce.js';
 
-function NavBar() {
+const NavBar = () => {
     const [categories, setCategories] = useState([]);
+    const [searchQuery, setSearchQuery] = useState(""); // To capture search input
+    const navigate = useNavigate(); // Hook to navigate to a different route
 
     useEffect(() => {
-        const commerce = new Commerce('pk_test_5679231f0e50d09e47c1f7773673522a983eddfbb0303', true);
-
-        const fetchCategories = async () => {
+        const loadCategories = async () => {
             try {
-                const { data: categories } = await commerce.categories.list();
-                setCategories(categories);
+                const fetchedCategories = await fetchCategories();
+                setCategories(fetchedCategories);
             } catch (error) {
-                console.error('Error fetching categories:', error);
+                console.error("Error loading categories in NavBar: ", error);
             }
         };
 
-        fetchCategories();
-    }, []);
+        loadCategories();
+    }, []); 
 
-    console.log(categories);
+    const handleSearch = (event) => {
+        event.preventDefault();
+        if (searchQuery.trim() !== "") {
+            navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`); // Navigate to the search page with the search query
+        }
+    };
 
     return (
         <div className='navbar'>
@@ -51,13 +57,20 @@ function NavBar() {
                         </div>
                         <div className='side-content'>
                             <li>
-                                <div className="ui search">
-                                    <div className="ui icon input">
-                                        <input className="prompt" type="text" placeholder="SEARCH" />
-                                        <i className="search icon"></i>
+                                <form onSubmit={handleSearch}> {/* Handle form submission for search */}
+                                    <div className="ui search">
+                                        <div className="ui icon input">
+                                            <input
+                                                className="prompt"
+                                                type="text"
+                                                placeholder="SEARCH"
+                                                value={searchQuery} // Bind the input value to state
+                                                onChange={(e) => setSearchQuery(e.target.value)} // Update state on input change
+                                            />
+                                            <i className="search icon"></i>
+                                        </div>
                                     </div>
-                                    <div className="results"></div>
-                                </div>
+                                </form>
                             </li>
                             <li>
                                 <Link to="/wishlist"><Heart size={32} /></Link>
@@ -66,7 +79,7 @@ function NavBar() {
                                 <Link to="/login"><UserCircle size={32} /></Link>
                             </li>
                             <li>
-                                <Link to="/cart"><ShoppingCart size={32}/></Link>
+                                <Link to="/cart"><ShoppingCart size={32} /></Link>
                             </li>
                         </div>
                     </ul>
@@ -74,6 +87,6 @@ function NavBar() {
             </header>
         </div>
     );
-}
+};
 
 export default NavBar;

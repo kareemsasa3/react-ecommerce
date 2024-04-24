@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
-import './shop.css';
+import './Home.css';
 import { useWishlist } from '../../context/WishlistContext';
 import fetchProductById from '../../api/fetchProductById';
 import { Heart } from 'phosphor-react';

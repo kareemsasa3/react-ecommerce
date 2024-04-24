@@ -1,0 +1,29 @@
+.product:hover {
+    transition: 0.3s ease-in;
+    cursor: pointer;
+}
+
+.product {
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.products-image {
+    max-width: 80%;
+    height: auto;
+}
+
+.product-image {
+    max-width: 40%;
+    height: auto;
+}  
+
+.product .description {
+    text-align: center;
+    font-size: 15px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}

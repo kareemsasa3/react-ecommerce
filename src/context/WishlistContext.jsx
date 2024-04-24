@@ -1,25 +1,35 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
+// Create a context for Wishlist
 const WishlistContext = createContext();
 
 export const WishlistProvider = ({ children }) => {
-    const [wishlist, setWishlist] = useState([]);
+  const [wishlist, setWishlist] = useState([]);
 
-    const toggleWishlist = (productId) => {
-        if (wishlist.includes(productId)) {
-            setWishlist((prevWishlist) => prevWishlist.filter((id) => id !== productId));
-        } else {
-            setWishlist((prevWishlist) => [...prevWishlist, productId]);
-        }
-    };
+  useEffect(() => {
+    const storedWishlist = JSON.parse(localStorage.getItem('wishlist'));
+    if (storedWishlist) {
+      setWishlist(storedWishlist);
+    }
+  }, []);
 
-    return (
-        <WishlistContext.Provider value={{ wishlist, toggleWishlist }}>
-            {children}
-        </WishlistContext.Provider>
-    );
+  useEffect(() => {
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+  }, [wishlist]);
+
+  const toggleWishlist = (productId) => {
+    if (wishlist.includes(productId)) {
+      setWishlist(wishlist.filter((id) => id !== productId));
+    } else {
+      setWishlist([...wishlist, productId]);
+    }
+  };
+
+  return (
+    <WishlistContext.Provider value={{ wishlist, toggleWishlist }}>
+      {children}
+    </WishlistContext.Provider>
+  );
 };
 
-export const useWishlist = () => {
-    return useContext(WishlistContext);
-};
+export const useWishlist = () => useContext(WishlistContext);
