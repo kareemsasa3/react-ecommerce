@@ -1,57 +1,100 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { Grid } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import { Heart } from 'phosphor-react';
-import { useWishlist } from '../context/WishlistContext';
-import { useCart } from '../context/CartContext';
-import "./ProductList.css";
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addToWishlist,
+  removeFromWishlist,
+  addToCart,
+  removeFromCart,
+} from '../redux/shopSlice';
+import './ProductList.css';
+import LoadingScreen from '../util/LoadingScreen'; // Loading screen component
+
+const parseHTMLString = (htmlString) => {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(htmlString, 'text/html');
+  return doc.body.textContent || '';
+};
 
 const ProductList = ({ products }) => {
-  const { wishlist, toggleWishlist } = useWishlist(); // Get wishlist functions from context
-  const { cart, toggleCartItem } = useCart(); // Get cart functions from context
+  const [isLoading, setIsLoading] = useState(true); // Loading state
+  const dispatch = useDispatch();
+  const wishlist = useSelector((state) => state.shop.wishlist);
+  const cart = useSelector((state) => state.shop.cart);
 
-  const isProductInWishlist = (productId) => wishlist.includes(productId); // Check if product is in wishlist
-  const isProductInCart = (productId) => cart.includes(productId); // Check if product is in cart
+  const isProductInWishlist = (productId) => wishlist.includes(productId);
+  const isProductInCart = (productId) => cart.includes(productId);
 
-  const handleToggleWishlist = (e, productId) => {
+  const handleWishlist = (e, productId) => {
     e.preventDefault();
-    toggleWishlist(productId); // Toggle wishlist status for the product
+    if (isProductInWishlist(productId)) {
+      dispatch(removeFromWishlist(productId));
+    } else {
+      dispatch(addToWishlist(productId));
+    }
   };
 
-  const handleToggleCart = (e, productId) => {
+  const handleCart = (e, productId) => {
     e.preventDefault();
-    toggleCartItem(productId); // Toggle cart status for the product
+    if (isProductInCart(productId)) {
+      dispatch(removeFromCart(productId));
+    } else {
+      dispatch(addToCart(productId));
+    }
   };
+
+  // Use effect to simulate loading or wait until data is ready
+  useEffect(() => {
+    // Simulate a delay or wait until products are loaded
+    if (products.length > 0) {
+      setIsLoading(false); // Data is loaded
+    }
+  }, [products]); // Re-run when products change
+
+  if (isLoading) {
+    return <LoadingScreen />; // Render loading screen while loading
+  }
 
   return (
-    <Grid columns={3} stackable doubling>
-      {products.map((product) => (
-        <Grid.Column key={product.id}>
-          <Link to={`/products/${product.id}`}>
-            <div className="product">
-              <button
-                className="wishlist-button"
-                onClick={(e) => handleToggleWishlist(e, product.id)} // Wishlist toggle
-              >
-                <Heart
-                  size={32}
-                  weight={isProductInWishlist(product.id) ? 'fill' : 'regular'} // Icon change based on status
-                />
-              </button>
-              <img src={product.image.url} alt={product.name} className="product-image" />
-              <h3>{product.name}</h3>
-              <h3>{product.price.formatted_with_symbol}</h3>
-              <button
-                className="cart-button"
-                onClick={(e) => handleToggleCart(e, product.id)} // Cart toggle
-              >
-                {isProductInCart(product.id) ? 'Remove from Cart' : 'Add to Cart'}
-              </button>
-            </div>
-          </Link>
-        </Grid.Column>
-      ))}
-    </Grid>
+    <div className="product-list">
+      <Grid columns={5} stackable doubling>
+        {products.map((product) => (
+          <Grid.Column key={product.id}>
+            <Link to={`/products/${product.id}`}>
+              <div className="product">
+                <img src={product.image.url} alt={product.name} className="product-image" />
+                <div className="product-description">
+                  <h3>
+                    {parseHTMLString(product.description)}
+                  </h3>
+                  <button
+                    className="wishlist-button"
+                    onClick={(e) => handleWishlist(e, product.id)}
+                  >
+                    <Heart
+                      size={32}
+                      weight={isProductInWishlist(product.id) ? 'fill' : 'regular'}
+                    />
+                  </button>
+                </div>
+                <div className="product-info">
+                  <h2 className="product-name">{product.name}</h2>
+                </div>
+                <p>{product.price.formatted_with_symbol}</p>
+                <button
+                  className="cart-button"
+                  onClick={(e) => handleCart(e, product.id)}
+                >
+                  {isProductInCart(product.id) ? 'Remove from Cart' : 'Add to Cart'}
+                </button>
+              </div>
+            </Link>
+          </Grid.Column>
+        ))}
+      </Grid>
+    </div>
   );
 };
 

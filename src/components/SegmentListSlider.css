@@ -1,0 +1,69 @@
+/* Main container for the segment list slider */
+.segment-list-slider {
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+  padding: 20px 100px;
+  height: 400px; /* Fixed height */
+  position: relative; /* Required for absolute positioning of arrows */
+  background: rgb(231, 215, 215); /* Background color */
+}
+
+/* The content within the segment list slider */
+.segment-content {
+  display: flex;
+  flex-direction: row; /* Horizontal layout */
+  justify-content: space-between; /* Spread content evenly */
+  align-items: center; /* Align vertically */
+  padding: 0 20px; /* Extra padding for horizontal spacing */
+}
+
+/* Image style for the segments */
+.segment-image {
+  max-width: 60%; /* Ensure the image doesn't exceed this width */
+  height: 360px; /* Fixed height for consistent layout */
+  border-radius: 10px; /* Rounded corners */
+  margin: 0 20px; /* Space between elements */
+}
+
+/* Style for the text in the segments */
+.section-text {
+  text-align: left; /* Align text to the left */
+  padding-left: 1em; /* Padding for separation */
+}
+
+/* Styles for arrow icons used for navigation */
+.arrow {
+  position: absolute; /* Absolute position for consistent placement */
+  font-size: 40px; /* Font size for arrow visibility */
+  cursor: pointer; /* Cursor change on hover */
+  user-select: none; /* Prevent text selection */
+}
+
+.arrow.left {
+  left: 20px; /* Distance from the left edge */
+  top: 50%; /* Vertically centered */
+  transform: translateY(-50%); /* Adjust vertical centering */
+}
+
+.arrow.right {
+  right: 20px; /* Distance from the right edge */
+  top: 50%; /* Vertically centered */
+  transform: translateY(-50%); /* Adjust vertical centering */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .segment-list-slider {
+    padding: 20px; /* Adjust padding for smaller screens */
+  }
+
+  .segment-content {
+    flex-direction: column; /* Stack content vertically */
+    text-align: center; /* Center text for smaller screens */
+  }
+
+  .segment-image {
+    width: 80%; /* Adjusted width for smaller screens */
+  }
+}

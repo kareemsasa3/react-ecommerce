@@ -1,41 +1,85 @@
 .navbar {
-    background-color: black;
+    position: fixed; /* Fixed at the top of the page */
+    top: 0; /* Stay at the top */
+    width: 100%; /* Full width */
+    background-color: #000000; /* Example color */
+    color: white; /* Text color */
+    padding: 10px; /* Padding for spacing */
+    z-index: 10; /* High z-index to ensure it stays on top */
+    transition: top 0.2s; /* Smooth transition for hide/show */
+    background-color: rgb(0, 0, 0);
     color: white;
-    padding: 20px 20px;
-    font-size: 24px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
-}
+  }
 
-.nav-list {
+  .navbar.hidden {
+    top: -110px;
+  }
+
+  .navbar.visible {
+    top: 0;
+  }
+  
+  .nav-list {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0;
-}
-
-.home-link {
-    margin-right: auto;
-}
-
-.category-link {
-    margin-right: auto;
-}
-
-.main-content {
+  }
+  
+  .main-content {
     display: flex;
     align-items: center;
     list-style-type: none;
-    padding: 0px;
-}
-
-.side-content {
+    padding-left: 0;
+  }
+  
+  .side-content {
     display: flex;
     align-items: center;
     list-style-type: none;
-    padding: 0;
-}
-
-.sideContent li {
+    padding-right: 10px;
+  }
+  
+  .nav-list li {
+    padding: 10px;
+    transition: color 0.2s, background-color 0.2s; /* Smooth transitions for hover effects */
+  }
+  
+  .nav-list li a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .nav-list li a:hover {
+    color: #2185d0; /* Semantic UI's blue color for hover effect */
+  }
+  
+  .nav-list .home-link {
+    margin-right: auto;
+  }
+  
+  .nav-list .category-link {
+    margin-right: 20px; /* Adjusted spacing for visual separation */
+  }
+  
+  .nav-list .side-content li {
     margin-left: 20px; /* Adjust spacing between items */
-}
+  }
+  
+  .nav-list .ui.search .prompt {
+    color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px solid rgb(255, 255, 255);
+    transition: border-color 0.3s;
+    font-size: 14px;
+    width: 20em;
+  }
+  
+  .nav-list .ui.search .prompt:focus {
+    border-color: #2185d0; /* Change border color when input is focused */
+  }
+  

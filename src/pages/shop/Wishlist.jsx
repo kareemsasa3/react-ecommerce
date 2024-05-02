@@ -1,58 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Grid } from 'semantic-ui-react';
-import './Home.css';
-import { useWishlist } from '../../context/WishlistContext';
+import { useSelector } from 'react-redux';
+import { Loader } from 'semantic-ui-react';
 import fetchProductById from '../../api/fetchProductById';
-import { Heart } from 'phosphor-react';
+import ProductList from '../../components/ProductList'; // Import ProductList
+import "./Wishlist.css";
 
 const Wishlist = () => {
-  const { wishlist, toggleWishlist } = useWishlist();
+  const wishlist = useSelector((state) => state.shop.wishlist);
   const [wishlistProducts, setWishlistProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const loadWishlistProducts = async () => {
       try {
-        // Fetch details of products in the wishlist
-        const productsData = await Promise.all(wishlist.map(productId => fetchProductById(productId)));
-        setWishlistProducts(productsData);
+        const productsData = await Promise.all(wishlist.map(fetchProductById)); // Fetch product data
+        setWishlistProducts(productsData); // Store the fetched products
       } catch (error) {
-        console.error('Error loading wishlist products: ', error);
+        console.error('Error loading wishlist products:', error);
+      } finally {
+        setIsLoading(false); // Loading is complete
       }
     };
 
-    loadWishlistProducts();
-  }, [wishlist]);
+    loadWishlistProducts(); // Load products when component mounts or wishlist changes
+  }, [wishlist]); // Dependency ensures re-run when wishlist changes
 
-  const handleToggleWishlist = (productId) => {
-    toggleWishlist(productId);
-  };
+  if (isLoading) {
+    return <Loader active inline="centered">Loading wishlist...</Loader>; // Display loading indicator
+  }
 
   return (
     <div>
-      <h2>Wishlist</h2>
+      <h1 className="wishlist-title">WISHLIST</h1>
       {wishlistProducts.length === 0 ? (
-        <p>Your wishlist is empty</p>
+        <p>Your wishlist is empty</p> // Display when wishlist is empty
       ) : (
-        <Grid columns={5} stackable doubling>
-          {wishlistProducts.map((product) => (
-            <Grid.Column key={product.id}>
-              <div className="product">
-                <button className="wishlist-button" onClick={() => handleToggleWishlist(product.id)}>
-                  <Heart 
-                    size={32}
-                    weight={wishlist.includes(product.id) ? "fill" : "regular"}
-                  />
-                </button>
-                <Link to={`/products/${product.id}`}>
-                  <img src={product.image.url} alt={product.name} className='product-image' />
-                  <h3>{product.name}</h3>
-                  <h3>{product.price.formatted_with_symbol}</h3>
-                </Link>
-              </div>
-            </Grid.Column>
-          ))}
-        </Grid>
+        <ProductList products={wishlistProducts} /> // Pass products to ProductList
       )}
     </div>
   );

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Header } from 'semantic-ui-react';
+import { Header, Segment, Grid } from 'semantic-ui-react';
 import fetchProductsByQuery from '../../api/fetchProductsByQuery';
-import ProductList from '../../components/ProductList'; // Import ProductList component
-import './Home.css';
+import ProductList from '../../components/ProductList';
+import LoadingScreen from '../../util/LoadingScreen';
+import './SearchPage.css';
 
 const SearchPage = () => {
     const [products, setProducts] = useState([]);
@@ -26,25 +27,55 @@ const SearchPage = () => {
             }
         };
 
-        fetchSearchResults(); // Fetch products when the component mounts or query changes
+        fetchSearchResults();
     }, [query]);
 
     if (isLoading) {
-        return <Header as='h3' textAlign='center'>Loading...</Header>;
+        return <LoadingScreen />;
     }
 
     if (hasError) {
-        return <Header as='h3' textAlign='center'>Error loading search results</Header>;
+        return (
+            <Segment>
+                <Header as='h3' textAlign='center'>Error loading search results. Please try again later.</Header>
+            </Segment>
+        );
     }
 
     if (products.length === 0) {
-        return <Header as='h3' textAlign='center'>No products found for "{query}"</Header>;
+        return (
+            <Segment>
+                <Header as='h3' textAlign='center'>No products found for "{query}"</Header>
+            </Segment>
+        );
     }
+
+    const resultsText = products.length === 1
+        ? "1 result found"
+        : `${products.length} results found`;
 
     return (
         <div className='search-page'>
-            <Header as='h2' textAlign='center'>Search Results for "{query}"</Header>
-            <ProductList products={products} /> {/* Use ProductList to render the search results */}
+            <Grid>
+                <Grid.Row columns={2}>
+                    <Grid.Column textAlign='left'>
+                        <div className='search-header'>
+                            <Header as='h2'>SEARCH RESULTS</Header>
+                        </div>
+                        <h1 className='search-query'>{query}</h1>
+                    </Grid.Column>
+                    <Grid.Column textAlign='right'>
+                        <div className='results-count'>
+                            <Header as='h3' className='results-count'>
+                                {resultsText}
+                            </Header>
+                        </div>
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
+            <div className='products'>
+                <ProductList products={products} />
+            </div>
         </div>
     );
 };
