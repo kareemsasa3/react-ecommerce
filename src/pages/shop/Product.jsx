@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Header, Button } from 'semantic-ui-react'; // Import Loader for loading indication
-import fetchProductById from '../../api/fetchProductById';
+import { fetchProductById } from '../../api/spring/fetchProductById';
 import LoadingScreen from '../../util/LoadingScreen';
 
 const Product = () => {

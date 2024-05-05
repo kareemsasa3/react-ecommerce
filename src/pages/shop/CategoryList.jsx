@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
-import fetchProductsByCategoryName from '../../api/fetchProductsByCategoryName';
+import { useParams } from 'react-router-dom'; // Ensure correct import for useParams
+import { fetchProductsByCategoryId } from '../../api/spring/fetchProductsByCategoryId'; // Correct import
 import ProductList from '../../components/ProductList';
 import { Loader, Grid, Header, Segment } from 'semantic-ui-react';
-import "./CategoryList.css";
+import "./CategoryList.css"; // Include custom styles
 
 const CategoryList = () => {
-  const [products, setProducts] = useState([]); // Initialized to an empty array
+  const [products, setProducts] = useState([]); // Initialized to empty array
   const [isLoading, setIsLoading] = useState(true); // Loading state
   const [hasError, setHasError] = useState(false); // Error state
-  const { categoryName } = useParams(); // Get the category name from URL params
+  const { categoryId } = useParams(); // Get the category ID from URL params
 
   useEffect(() => {
-    const loadProductsByCategoryName = async () => {
+    const loadProductsByCategoryId = async () => {
       setIsLoading(true); // Reset loading state when category changes
       try {
-        const productsData = await fetchProductsByCategoryName(categoryName); // Fetch products by category
+        const categoryID = parseInt(categoryId, 10); // Parse categoryId as a number
+        const productsData = await fetchProductsByCategoryId(categoryID); // Fetch products by category
         setProducts(productsData); // Store fetched products
         setHasError(false); // Reset error state
       } catch (error) {
@@ -26,61 +27,50 @@ const CategoryList = () => {
       }
     };
 
-    loadProductsByCategoryName(); // Fetch data on component mount or when category changes
-  }, [categoryName]); // Dependency on category name
+    loadProductsByCategoryId(); // Fetch data on component mount or when category changes
+  }, [categoryId]); // Re-run when categoryId changes
 
-  let resultsText = ''; // Declare results text variable
+  console.log(products);
 
   if (isLoading) { // Show loading screen while fetching new category
-    return <Loader active inline="centered">Loading products...</Loader>; // Display loading screen
+    return (
+      <Loader active inline="centered">Loading products...</Loader> // Display loading
+    );
   }
 
   if (hasError) { // Handle error scenario
-    resultsText = 'Error fetching results. Please try again later.';
     return (
       <Segment>
-        <div className='results-count'>
-          <Header as='h3' textAlign='center'>{resultsText}</Header>
-        </div>
+        <Header as='h3' textAlign='center'>Error fetching products. Please try again later.</Header>
       </Segment>
     );
   }
 
   if (products.length === 0) { // Check for zero results
-    resultsText = 'No results found';
     return (
       <Segment>
-        <div className='results-count'>
-          <Header as='h3' textAlign='center'>{resultsText}</Header>
-        </div>
+        <Header as='h3' textAlign='center'>No products found in this category.</Header>
       </Segment>
     );
   }
 
-  // Determine results text based on product count
-  if (products.length === 1) {
-    resultsText = "1 result found"; // Singular
-  } else {
-    resultsText = `${products.length} results found`; // Plural
-  }
+  const resultsText = products.length === 1 ? "1 result found" : `${products.length} results found`; // Determine results text
 
   return (
     <div className='category-list'>
       <Grid>
         <Grid.Row columns={2}>
           <Grid.Column textAlign='left'>
-            <h1 className='category-name'>{categoryName}</h1> {/* Category name */}
+            <h1 className='category-id'>Category {categoryId}</h1> {/* Display category ID */}
           </Grid.Column>
           <Grid.Column textAlign='right'>
-            <div className='results-count'>
-              <Header as='h3' className='results-count'>{resultsText}</Header> {/* Results count */}
-            </div>
+            <Header as='h3' className='results-count'>{resultsText}</Header> {/* Display results count */}
           </Grid.Column>
         </Grid.Row>
       </Grid>
 
       <div className='products'>
-        <ProductList products={products} /> {/* Wrapped ProductList in a div */}
+        <ProductList products={products} /> {/* Display products */}
       </div>
     </div>
   );

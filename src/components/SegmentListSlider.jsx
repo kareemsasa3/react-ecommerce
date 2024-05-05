@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import './SegmentListSlider.css'; // Include your custom CSS
 
 const SegmentListSlider = ({ segments }) => {
@@ -10,7 +11,7 @@ const SegmentListSlider = ({ segments }) => {
       setCurrentIndex((prevIndex) =>
         prevIndex === segments.length - 1 ? 0 : prevIndex + 1
       );
-    }, 5000); // Auto-transition every 5 seconds
+    }, 7000); // Auto-transition every 7 seconds
   };
 
   const stopAutoTransition = () => {
@@ -38,7 +39,16 @@ const SegmentListSlider = ({ segments }) => {
     manualTransition('right');
   };
 
+  const handleDotClick = (index) => {
+    stopAutoTransition(); // If dots are clicked, stop auto-transition
+    setCurrentIndex(index);
+  };
+
   const currentSection = segments[currentIndex];
+
+  const backgroundStyle = currentSection.background
+    ? { backgroundImage: `url(${currentSection.background})` } // Set background image
+    : { backgroundColor: 'lightgray' }; // Default background color
 
   useEffect(() => {
     startAutoTransition(); // Start auto-transition on mount
@@ -46,28 +56,51 @@ const SegmentListSlider = ({ segments }) => {
   }, []); // Only run once on component mount
 
   return (
-    <section className="segment-list-slider">
+    <section className="segment-list-slider" style={backgroundStyle}>
       <div className="segment-content">
-        <div className="arrow left" onClick={handlePrevious}>
+        <button className="arrow left" onClick={handlePrevious}>
           <i className="angle left icon arrow-icon"></i>
-        </div>
-        {currentSection.image && (
-          <img
-            src={currentSection.image}
-            alt={currentSection.title}
-            className="segment-image"
-          />
-        )}
+        </button>
         <div className="section-text">
           {currentSection.title && <h2>{currentSection.title}</h2>}
           {currentSection.text && <p>{currentSection.text}</p>}
         </div>
-        <div className="arrow right" onClick={handleNext}>
+        {currentSection.image && (
+        <img
+          src={currentSection.image}
+          alt={currentSection.title}
+          className="segment-image"
+        />
+      )}
+        <button className="arrow right" onClick={handleNext}>
           <i className="angle right icon arrow-icon"></i>
-        </div>
+        </button>
+      </div>
+      
+      <div className="dots-container">
+        {segments.map((_, index) => (
+          <button
+            key={index}
+            className={`dot ${index === currentIndex ? 'active' : ''}`}
+            onClick={() => handleDotClick(index)}
+            aria-label={`Go to segment ${index + 1}`}
+          />
+        ))}
       </div>
     </section>
   );
+};
+
+SegmentListSlider.propTypes = {
+  segments: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, // ID can be string or number
+      title: PropTypes.string.isRequired, // Title is required
+      text: PropTypes.string, // Text is optional
+      image: PropTypes.string, // Image URL is optional
+      background: PropTypes.string, // Background image URL is optional
+    })
+  ).isRequired, // The segments array must be provided
 };
 
 export default SegmentListSlider;

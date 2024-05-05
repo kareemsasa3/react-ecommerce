@@ -10,7 +10,7 @@ import {
   removeFromCart,
 } from '../redux/shopSlice';
 import './ProductList.css';
-import LoadingScreen from '../util/LoadingScreen'; // Loading screen component
+import LoadingScreen from '../util/LoadingScreen';
 
 const parseHTMLString = (htmlString) => {
   const parser = new DOMParser();
@@ -18,8 +18,8 @@ const parseHTMLString = (htmlString) => {
   return doc.body.textContent || '';
 };
 
-const ProductList = ({ products }) => {
-  const [isLoading, setIsLoading] = useState(true); // Loading state
+const ProductList = ({ products = [] }) => {
+  const [isLoading, setIsLoading] = useState(products.length === 0);
   const dispatch = useDispatch();
   const wishlist = useSelector((state) => state.shop.wishlist);
   const cart = useSelector((state) => state.shop.cart);
@@ -30,8 +30,10 @@ const ProductList = ({ products }) => {
   const handleWishlist = (e, productId) => {
     e.preventDefault();
     if (isProductInWishlist(productId)) {
+      console.log("Removing " + productId + " from the wishlist.");
       dispatch(removeFromWishlist(productId));
     } else {
+      console.log("Adding " + productId + " to the wishlist.");
       dispatch(addToWishlist(productId));
     }
   };
@@ -39,22 +41,26 @@ const ProductList = ({ products }) => {
   const handleCart = (e, productId) => {
     e.preventDefault();
     if (isProductInCart(productId)) {
+      console.log("Removing " + productId + " from the shopping cart.");
       dispatch(removeFromCart(productId));
     } else {
+      console.log("Adding " + productId + " to the shopping cart.");
       dispatch(addToCart(productId));
     }
   };
 
-  // Use effect to simulate loading or wait until data is ready
   useEffect(() => {
-    // Simulate a delay or wait until products are loaded
     if (products.length > 0) {
-      setIsLoading(false); // Data is loaded
+      setIsLoading(false);
     }
-  }, [products]); // Re-run when products change
+  }, [products]);
 
   if (isLoading) {
-    return <LoadingScreen />; // Render loading screen while loading
+    return <LoadingScreen />;
+  }
+
+  if (products.length === 0) {
+    return <div>No products found.</div>;
   }
 
   return (
@@ -64,11 +70,13 @@ const ProductList = ({ products }) => {
           <Grid.Column key={product.id}>
             <Link to={`/products/${product.id}`}>
               <div className="product">
-                <img src={product.image.url} alt={product.name} className="product-image" />
+                <img
+                  src={product.imageUrl || 'no_image_available.jpeg'}
+                  alt={product.name}
+                  className="product-image"
+                />
                 <div className="product-description">
-                  <h3>
-                    {parseHTMLString(product.description)}
-                  </h3>
+                  <h3>{parseHTMLString(product.description)}</h3>
                   <button
                     className="wishlist-button"
                     onClick={(e) => handleWishlist(e, product.id)}
@@ -82,7 +90,7 @@ const ProductList = ({ products }) => {
                 <div className="product-info">
                   <h2 className="product-name">{product.name}</h2>
                 </div>
-                <p>{product.price.formatted_with_symbol}</p>
+                <p>$ {product.price || 'N/A'}</p>
                 <button
                   className="cart-button"
                   onClick={(e) => handleCart(e, product.id)}

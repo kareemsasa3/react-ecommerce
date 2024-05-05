@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Heart, ShoppingCart, UserCircle } from 'phosphor-react';
 import { Dropdown } from 'semantic-ui-react';
-import fetchCategories from '../api/fetchCategories';
+import { fetchCategories } from '../api/spring/fetchCategories';
 import './NavBar.css';
 
 const NavBar = () => {
@@ -67,7 +67,7 @@ const NavBar = () => {
               <Dropdown text='CATEGORY' icon='angle down'>
                 <Dropdown.Menu>
                   {categories.map((category) => (
-                    <Dropdown.Item as={Link} key={category.name} to={`/category/${category.slug}`}>
+                    <Dropdown.Item as={Link} key={category.id} to={`/category/${category.id}`}>
                       {category.name}
                     </Dropdown.Item>
                   ))}

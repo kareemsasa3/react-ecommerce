@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Loader } from 'semantic-ui-react';
-import fetchProductById from '../../api/fetchProductById';
+import { fetchProductById } from '../../api/spring/fetchProductById';
 import ProductList from '../../components/ProductList'; // Import ProductList
 import "./Wishlist.css";
 
@@ -13,6 +13,7 @@ const Wishlist = () => {
   useEffect(() => {
     const loadWishlistProducts = async () => {
       try {
+        console.log("current wishlist: " + wishlist);
         const productsData = await Promise.all(wishlist.map(fetchProductById)); // Fetch product data
         setWishlistProducts(productsData); // Store the fetched products
       } catch (error) {

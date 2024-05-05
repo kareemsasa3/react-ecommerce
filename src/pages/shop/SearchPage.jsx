@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Header, Segment, Grid } from 'semantic-ui-react';
-import fetchProductsByQuery from '../../api/fetchProductsByQuery';
+import fetchProductsByQuery from '../../api/commerce/fetchProductsByQuery';
 import ProductList from '../../components/ProductList';
 import LoadingScreen from '../../util/LoadingScreen';
 import './SearchPage.css';
