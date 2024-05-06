@@ -3,6 +3,7 @@ import { fetchProducts } from '../../api/spring/fetchProducts';
 import ProductList from '../../components/ProductList';
 import SegmentListSlider from '../../components/SegmentListSlider';
 import './Home.css';
+import ResetCartButton from '../../components/ResetCartButton';
 
 const segmentSections = [
   {

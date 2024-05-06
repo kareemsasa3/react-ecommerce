@@ -1,5 +1,4 @@
 .shopping-cart {
-    padding: 20px; /* Overall padding for the shopping cart */
     background: rgb(247, 249, 253);
 }
 
@@ -15,6 +14,8 @@
 
 .empty-cart {
     display: flex;
+    padding-top: 100px;
+    padding-bottom: 40px;
     align-items: center;
     justify-content: center;
     flex-direction: column;

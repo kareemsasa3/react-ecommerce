@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Home from './pages/shop/Home';
-import CategoryList from './pages/shop/CategoryList';
+import CategoryList from './components/CategoryList';
 import Cart from './pages/shop/ShoppingCart';
 import Product from './pages/shop/Product';
 import Wishlist from './pages/shop/Wishlist';

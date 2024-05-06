@@ -12,12 +12,6 @@ import {
 import './ProductList.css';
 import LoadingScreen from '../util/LoadingScreen';
 
-const parseHTMLString = (htmlString) => {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(htmlString, 'text/html');
-  return doc.body.textContent || '';
-};
-
 const ProductList = ({ products = [] }) => {
   const [isLoading, setIsLoading] = useState(products.length === 0);
   const dispatch = useDispatch();
@@ -30,21 +24,18 @@ const ProductList = ({ products = [] }) => {
   const handleWishlist = (e, productId) => {
     e.preventDefault();
     if (isProductInWishlist(productId)) {
-      console.log("Removing " + productId + " from the wishlist.");
       dispatch(removeFromWishlist(productId));
     } else {
-      console.log("Adding " + productId + " to the wishlist.");
       dispatch(addToWishlist(productId));
     }
   };
 
   const handleCart = (e, productId) => {
     e.preventDefault();
+
     if (isProductInCart(productId)) {
-      console.log("Removing " + productId + " from the shopping cart.");
       dispatch(removeFromCart(productId));
     } else {
-      console.log("Adding " + productId + " to the shopping cart.");
       dispatch(addToCart(productId));
     }
   };
@@ -60,7 +51,7 @@ const ProductList = ({ products = [] }) => {
   }
 
   if (products.length === 0) {
-    return <div>No products found.</div>;
+    return <div className='no-products'>No products found.</div>;
   }
 
   return (
@@ -72,11 +63,11 @@ const ProductList = ({ products = [] }) => {
               <div className="product">
                 <img
                   src={product.imageUrl || 'no_image_available.jpeg'}
-                  alt={product.name}
+                  alt={product.name || 'No Name'}
                   className="product-image"
                 />
                 <div className="product-description">
-                  <h3>{parseHTMLString(product.description)}</h3>
+                  <h3>{product.description}</h3>
                   <button
                     className="wishlist-button"
                     onClick={(e) => handleWishlist(e, product.id)}

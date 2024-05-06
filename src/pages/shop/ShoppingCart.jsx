@@ -2,76 +2,89 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Grid, Loader, Button, Message } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
-import { fetchProductById } from '../../api/spring/fetchProductById'; // Function to fetch product by ID
-import ProductList from '../../components/ProductList';
-import { removeFromCart } from '../../redux/shopSlice'; // Redux action to remove from cart
+import { fetchProductById } from '../../api/spring/fetchProducts';
+import { removeFromCart } from '../../redux/shopSlice';
+import CartItems from '../../components/CartItems';
+import Summary from '../../components/Summary';
+import MostCommonCategory from '../../components/MostCommonCategory';
 import './ShoppingCart.css';
 
 const ShoppingCart = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const cart = useSelector((state) => state.shop.cart); // Get cart IDs from Redux
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const cart = useSelector((state) => state.shop.cart);
 
-    const [cartProducts, setCartProducts] = useState([]); // Store fetched products
-    const [isLoading, setIsLoading] = useState(true); // Loading state
-    const [error, setError] = useState(null); // Error state
+  const [cartProducts, setCartProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    // Fetch cart products from the Spring backend
-    useEffect(() => {
-        const loadCartProducts = async () => {
-            setIsLoading(true);
-            console.log("current cart: " + cart);
-            try {
-                const productsData = await Promise.all(
-                    cart.map((productId) => fetchProductById(productId))
-                ); // Fetch products by their IDs
-                setCartProducts(productsData); // Store fetched products
-            } catch (error) {
-                console.error('Error loading cart products:', error);
-                setError('Failed to load cart products'); // Set error message
-            } finally {
-                setIsLoading(false); // Loading complete
-            }
-        };
+  const handleContinueShopping = () => {
+    navigate('/'); // Navigate back to the home page
+  };
 
-        loadCartProducts(); // Fetch products when cart changes
-    }, [cart]); // Re-run when cart changes
+  // Load cart products when the cart changes
+  useEffect(() => {
+    const loadCartProducts = async () => {
+      setIsLoading(true);
+      try {
+        if (cart.length === 0) {
+          console.log('Cart is empty.');
+          setCartProducts([]);
+          setIsLoading(false);
+          return; // Early return if cart is empty
+        }
 
-    const handleContinueShopping = () => {
-        navigate('/'); // Redirects to home page
+        const productsData = await Promise.all(
+          cart.map((productId) => fetchProductById(productId))
+        );
+
+        setCartProducts(productsData);
+        setError(null); // Reset error state
+      } catch (error) {
+        console.error('Error loading cart products:', error);
+        setError('Failed to load cart products');
+      } finally {
+        setIsLoading(false); // End loading state
+      }
     };
 
-    if (isLoading) { // Display loading screen while fetching
-        return <Loader active inline="centered">Loading cart...</Loader>;
-    }
+    loadCartProducts(); // Fetch cart products when the cart changes
+  }, [cart]);
 
-    if (error) { // Handle error scenario
-        return <Message negative>{error}</Message>; // Display error message
-    }
+  if (isLoading) {
+    return <Loader active inline="centered">Loading cart...</Loader>; // Display loading
+  }
 
-    if (cartProducts.length === 0) { // Handle empty cart
-        return (
-            <div className="empty-cart">
-                <h2>Your cart is empty.</h2>
-                <Button onClick={handleContinueShopping} className="continue-shopping">Continue Shopping</Button>
-            </div>
-        );
-    }
+  if (error) {
+    return <Message negative>{error}</Message>; // Display error message
+  }
 
-    return (
-        <div className="shopping-cart">
-            <h1 className="my-cart">My Cart</h1>
-            <Grid columns={2} stackable>
-                <Grid.Column width={10}> {/* Cart items */}
-                    <ProductList products={cartProducts} /> {/* Display the list of products */}
-                </Grid.Column>
-                <Grid.Column width={6}> {/* Summary */}
-                    {/* Add a summary component with cart information */}
-                    <Button onClick={() => dispatch(removeFromCart(cartProducts[0].id))}>Remove First Product</Button>
-                </Grid.Column>
-            </Grid>
+  const itemCount = cartProducts.length;
+
+  return (
+    <div className="shopping-cart">
+      <h1 className="my-cart">My Cart</h1>
+      {cartProducts.length === 0 ? (
+        <div className="empty-cart">
+          <h2>Your cart is empty.</h2>
+          <Button onClick={handleContinueShopping}>Continue Shopping</Button>
         </div>
-    );
+      ) : (
+        <Grid columns={2} stackable>
+          <Grid.Column width={10}>
+            <CartItems cartProducts={cartProducts} removeFromCart={(id) => dispatch(removeFromCart(id))} />
+          </Grid.Column>
+          <Grid.Column width={6}>
+            <Summary itemCount={itemCount} cartProducts={cartProducts} />
+          </Grid.Column>
+        </Grid>
+      )}
+      <div className="similar-products">
+        <h2>YOU MAY ALSO LIKE</h2>
+        <MostCommonCategory /> {/* Display recommendations */}
+      </div>
+    </div>
+  );
 };
 
 export default ShoppingCart;

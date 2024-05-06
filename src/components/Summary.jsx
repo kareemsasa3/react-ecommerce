@@ -3,7 +3,7 @@ import "./Summary.css";
 
 const Summary = ({ itemCount, cartProducts }) => {
   const subtotal = cartProducts.reduce(
-    (total, product) => total + parseFloat(product.price.raw),
+    (total, product) => total + product.price,
     0
   );
 
