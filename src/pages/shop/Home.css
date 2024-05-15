@@ -1,6 +1,6 @@
 /* Home.css */
 .home {
-  background: rgb(247, 249, 253); /* Overall background color for the home page */
+  background-color: rgb(242, 243, 247);
 }
 
 /* Global heading styles */
@@ -15,7 +15,7 @@ h2 {
   color: white; /* White text color */
   text-align: center; /* Center text */
   padding-top: 120px; /* Top padding */
-  padding-bottom: 50px; /* Bottom padding */
+  padding-bottom: 60px; /* Bottom padding */
   width: 100%; /* Full width */
 }
 

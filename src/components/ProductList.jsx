@@ -8,7 +8,7 @@ import {
   removeFromWishlist,
   addToCart,
   removeFromCart,
-} from '../redux/shopSlice';
+} from '../redux/slices/shopSlice';
 import './ProductList.css';
 import LoadingScreen from '../util/LoadingScreen';
 

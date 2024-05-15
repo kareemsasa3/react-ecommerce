@@ -1,91 +1,94 @@
 .login-container {
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    background: white;
-    border: 1px solid white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-  }
+  font-family: 'Courier New', Courier, monospace;
+  max-width: 800px;
+  margin: auto;
+  padding: 180px 80px 40px 80px;
+  background: white;
+  border: 1px solid white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+}
   
-  .login-container h2 {
-    text-align: center;
-  }
-  
-  .login-container form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .login-container form div {
-    margin-bottom: 10px;
-  }
-  
-  .login-container label {
-    font-weight: bold;
-  }
-  
-  .login-container input {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    width: 100%;
-  }
-  
-  .login-options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+.login-container h2 {
+  text-align: left;
+}
 
-  .remember-me-label {
-    display: inline-flex;
-    align-items: center;
-    white-space: nowrap;
-  }
+.login-container form {
+  display: flex;
+  flex-direction: column;
+}
 
-  .remember-me-label input {
-    margin-right: 10px;
-  }
+.login-container form div {
+  margin-bottom: 10px;
+}
+
+.login-container label {
+  font-weight: bold;
+}
+
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.remember-me-label {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.remember-me-label input {
+  margin-right: 10px;
+}
+
+.forgot-password-link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.forgot-password-link:hover {
+  text-decoration: underline;
+}
+
+.register-section {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.register-section p {
+  font-size: 14px;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+}
   
-  .forgot-password-link {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .forgot-password-link:hover {
-    text-decoration: underline;
-  }
-  
-  .register-section {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .register-section p {
-    font-size: 14px;
-  }
-  
-  .error {
-    color: red;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-.login-button {
+.login-container .login-button {
     background-color: black; /* Set the background color to black */
     color: white; /* White text for contrast */
     border: none; /* Remove borders if needed */
-    padding: 10px 20px; /* Padding for button */
+    border-radius: 20px;
+    padding: 15px 20px; /* Padding for button */
     cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Smooth transition effect */
+    transition: all 0.3s ease; /* Smooth transition effect */
+    width: 200px;
+}
 
-    /* Add hover effect */
-    &:hover {
-        background-color: red; /* Change to dark gray on hover */
-    }
+.login-container .login-button:hover {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
 }
   
 .heading {
    color: black; /* Change heading color */
+   font-size: 40px;
+   font-family: 'Courier New', Courier, monospace;
+}
+
+.no-account {
+  padding-top: 20px;
 }

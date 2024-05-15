@@ -1,85 +1,94 @@
 .navbar {
-    position: fixed; /* Fixed at the top of the page */
-    top: 0; /* Stay at the top */
-    width: 100%; /* Full width */
-    background-color: #000000; /* Example color */
-    color: white; /* Text color */
-    padding: 10px; /* Padding for spacing */
-    z-index: 10; /* High z-index to ensure it stays on top */
-    transition: top 0.2s; /* Smooth transition for hide/show */
-    background-color: rgb(0, 0, 0);
-    color: white;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
+  position: fixed;
+  top: 0; /* Stay at the top */
+  width: 100%;
+  color: white; /* Text color */
+  z-index: 10; /* High z-index to ensure it stays on top */
+  transition: top 0.6s; /* Smooth transition for hide/show */
+  background-color: rgb(0, 0, 0);
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  padding: 0px 10px 0px 10px;
+}
+
+.navbar.hidden {
+  top: -110px;
+}
+
+.navbar.visible {
+  top: 0;
+}
+
+.nav-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  list-style-type: none;
+}
+
+.nav-list .main-content,
+.nav-list .side-content {
+  display: flex;
+  align-items: center;
+}
+
+.ui.search {
+  display: inline-block;
+}
+
+@media (max-width: 600px) {
+  .ui.search .ui.input {
+    display: none; /* Hide the search input */
   }
 
-  .navbar.hidden {
-    top: -110px;
+  .search-icon {
+    display: inline-block; /* Display the search icon */
   }
+}
 
-  .navbar.visible {
-    top: 0;
-  }
+.nav-list li {
+  padding: 10px;
+  transition: color 0.2s, background-color 0.2s; /* Smooth transitions for hover effects */
+}
+
+.nav-list li a {
+  color: white;
+  text-decoration: none;
+}
+
+.nav-list li a:hover {
+  color: #2185d0; /* Semantic UI's blue color for hover effect */
+}
+
+.nav-list .home-link {
+  margin-right: auto;
+}
+
+.nav-list .category-link {
+  margin-right: 20px; /* Adjusted spacing for visual separation */
+}
+
+.no-icon-dropdown .dropdown.icon {
+  display: none; /* Prevents the icon from being displayed */
+}
+
+.nav-list .side-content li {
+  margin-left: 10px; /* Adjust spacing between items */
+}
+
+.nav-list .ui.search .prompt {
+  color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
+  transition: border-color 0.3s;
+  font-size: 12px;
+  width: 220px;
+}
+
+.nav-list .ui.search .prompt:focus {
+  border-color: #abb6ce; /* Change border color when input is focused */
+}
+
   
-  .nav-list {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0;
-  }
-  
-  .main-content {
-    display: flex;
-    align-items: center;
-    list-style-type: none;
-    padding-left: 0;
-  }
-  
-  .side-content {
-    display: flex;
-    align-items: center;
-    list-style-type: none;
-    padding-right: 10px;
-  }
-  
-  .nav-list li {
-    padding: 10px;
-    transition: color 0.2s, background-color 0.2s; /* Smooth transitions for hover effects */
-  }
-  
-  .nav-list li a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .nav-list li a:hover {
-    color: #2185d0; /* Semantic UI's blue color for hover effect */
-  }
-  
-  .nav-list .home-link {
-    margin-right: auto;
-  }
-  
-  .nav-list .category-link {
-    margin-right: 20px; /* Adjusted spacing for visual separation */
-  }
-  
-  .nav-list .side-content li {
-    margin-left: 20px; /* Adjust spacing between items */
-  }
-  
-  .nav-list .ui.search .prompt {
-    color: rgb(255, 255, 255);
-    background-color: rgba(0, 0, 0, 0);
-    border: 1px solid rgb(255, 255, 255);
-    transition: border-color 0.3s;
-    font-size: 14px;
-    width: 20em;
-  }
-  
-  .nav-list .ui.search .prompt:focus {
-    border-color: #2185d0; /* Change border color when input is focused */
-  }
   

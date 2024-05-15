@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { fetchProducts } from '../../api/spring/fetchProducts';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../../redux/slices/authSlice';
+
 import ProductList from '../../components/ProductList';
 import SegmentListSlider from '../../components/SegmentListSlider';
+import { fetchProducts } from '../../api/spring/fetchProducts';
+import { Button } from 'semantic-ui-react';
 import './Home.css';
-import ResetCartButton from '../../components/ResetCartButton';
 
 const segmentSections = [
   {
@@ -35,13 +39,26 @@ const Home = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+
+  const handleLogin = () => {
+    navigate('/login');
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/');
+  };
+
   useEffect(() => {
     const loadProducts = async () => {
       try {
         const allProducts = await fetchProducts();
         setFeaturedProducts(allProducts.slice(0, 5)); // First 5 as featured
         setNewArrivals(allProducts.slice(-5)); // Last 5 as new arrivals
-        console.log(allProducts);
       } catch (error) {
         console.error('Error loading products:', error);
       } finally {
@@ -65,6 +82,20 @@ const Home = () => {
       <div className="hero">
         <h1>Welcome to Curated Collectibles</h1>
         <p>Your one-stop shop for unique items and collectibles.</p>
+        <div>
+          {/* Conditionally render the button based on login status */}
+          {isAuthenticated ? (
+            <div>
+              <p>Welcome, {user.firstName}!</p>
+              <Button onClick={handleLogout}>Log Out</Button>
+            </div>
+          ) : (
+            <div>
+              <p>You are not logged in!</p>
+              <Button onClick={handleLogin}>Log In</Button>
+            </div>
+          )}
+        </div>
       </div>
       <SegmentListSlider segments={segmentSections} /> {/* Use the new component */}
       <section className="featured-products">

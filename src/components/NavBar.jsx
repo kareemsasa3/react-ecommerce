@@ -1,18 +1,61 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Heart, ShoppingCart, UserCircle } from 'phosphor-react';
-import { Dropdown } from 'semantic-ui-react';
+import { Dropdown, Icon } from 'semantic-ui-react';
 import { fetchCategories } from '../api/spring/fetchCategories';
 import './NavBar.css';
 
 const NavBar = () => {
+  const [isSearchVisible, setSearchVisible] = useState(true);
   const [categories, setCategories] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isNavbarVisible, setNavbarVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  
   const navigate = useNavigate();
+  const searchRef = useRef(null);
 
-  // Load categories from the API
+  const isUserLoggedIn = () => {
+    const token = localStorage.getItem('jwtToken');
+    return token !== null;
+  };
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    console.log("Search submitted:", searchQuery);
+    if (searchQuery.trim() !== "") {
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
+  const handleIconClick = () => {
+    setSearchVisible(!isSearchVisible);
+  };
+
+  const handleOutsideClick = (e) => {
+    if (
+      searchRef.current &&
+      !searchRef.current.contains(e.target) &&
+      window.innerWidth < 800
+    ) {
+      setSearchVisible(false);
+    }
+  };
+
+  const handleScroll = useCallback(() => {
+    const currentScrollY = window.scrollY;
+    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      setNavbarVisible(false);
+    } else {
+      setNavbarVisible(true);
+    }
+    setLastScrollY(currentScrollY);
+  }, [lastScrollY]);
+
+  const handleResize = () => {
+    setSearchVisible(window.innerWidth > 800);
+  };
+
   useEffect(() => {
     const loadCategories = async () => {
       try {
@@ -23,48 +66,35 @@ const NavBar = () => {
       }
     };
 
-    loadCategories(); // Load categories initially
+    loadCategories();
   }, []);
 
-  // Handle search query and navigate
-  const handleSearch = (event) => {
-    event.preventDefault();
-    if (searchQuery.trim() !== "") {
-      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-    }
-  };
-
-  // Handle scroll event to toggle navbar visibility
-  const handleScroll = useCallback(() => {
-    const currentScrollY = window.scrollY; // Current scroll position
-    if (currentScrollY > lastScrollY && currentScrollY > 100) { // Scrolling down, hide navbar
-      setNavbarVisible(false);
-    } else { // Scrolling up, show navbar
-      setNavbarVisible(true);
-    }
-    setLastScrollY(currentScrollY); // Update last scroll position
-  }, [lastScrollY]);
-
-  // Add or remove scroll event listener based on dependency
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll); // Add event listener
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('mousedown', handleOutsideClick);
+    window.addEventListener('scroll', handleScroll);
+
     return () => {
-      window.removeEventListener('scroll', handleScroll); // Cleanup on unmount
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousedown', handleOutsideClick); // Clean up
+      window.removeEventListener('scroll', handleScroll);
     };
-  }, [handleScroll]); // Re-run when handleScroll changes
+  }, [handleResize, handleOutsideClick, handleScroll]);
 
   return (
-    <header className={`navbar ${isNavbarVisible ? 'visible' : 'hidden'}`}> {/* Toggle visibility */}
+    <header className={`navbar ${isNavbarVisible ? 'visible' : 'hidden'}`}>
       <nav>
         <ul className='nav-list'>
           <div className='main-content'>
             <li className='home-link'>
               <Link to="/">
-                <h1>Curated Collectibles</h1> {/* Company name or logo */}
+                <p>Curated Collectibles</p>
               </Link>
             </li>
             <li className="category-link">
-              <Dropdown text='CATEGORY' icon='angle down'>
+              <Dropdown 
+                className="no-icon-dropdown"
+                text='CATEGORY'>
                 <Dropdown.Menu>
                   {categories.map((category) => (
                     <Dropdown.Item as={Link} key={category.id} to={`/category/${category.id}`}>
@@ -81,16 +111,20 @@ const NavBar = () => {
             <li>
               <form onSubmit={handleSearch}>
                 <div className="ui search">
-                  <div className="ui icon input">
-                    <input
-                      className="prompt"
-                      type="text"
-                      placeholder="SEARCH"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                    <i className="search icon"></i>
-                  </div>
+                    {isSearchVisible ? (
+                      <div className="ui icon input">
+                        <input
+                          className="prompt"
+                          type="text"
+                          placeholder="SEARCH"
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                        <Icon name="search" size="large" />
+                      </div>
+                    ): (
+                      <Icon name="search" size="large" onClick={handleIconClick}/>
+                    )}
                 </div>
               </form>
             </li>
@@ -100,7 +134,7 @@ const NavBar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/login">
+              <Link to={isUserLoggedIn() ? "/account" : "/login"}>
                 <UserCircle size={32} />
               </Link>
             </li>

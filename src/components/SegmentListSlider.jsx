@@ -47,13 +47,13 @@ const SegmentListSlider = ({ segments }) => {
   const currentSection = segments[currentIndex];
 
   const backgroundStyle = currentSection.background
-    ? { backgroundImage: `url(${currentSection.background})` } // Set background image
-    : { backgroundColor: 'lightgray' }; // Default background color
+    ? { backgroundImage: `url(${currentSection.background})` }
+    : { backgroundColor: 'lightgray' };
 
   useEffect(() => {
-    startAutoTransition(); // Start auto-transition on mount
-    return () => clearInterval(intervalRef.current); // Cleanup on unmount
-  }, []); // Only run once on component mount
+    startAutoTransition();
+    return () => clearInterval(intervalRef.current);
+  }, []);
 
   return (
     <section className="segment-list-slider" style={backgroundStyle}>
@@ -66,12 +66,12 @@ const SegmentListSlider = ({ segments }) => {
           {currentSection.text && <p>{currentSection.text}</p>}
         </div>
         {currentSection.image && (
-        <img
-          src={currentSection.image}
-          alt={currentSection.title}
-          className="segment-image"
-        />
-      )}
+          <img
+            src={currentSection.image}
+            alt={currentSection.title}
+            className="segment-image"
+          />
+        )}
         <button className="arrow right" onClick={handleNext}>
           <i className="angle right icon arrow-icon"></i>
         </button>

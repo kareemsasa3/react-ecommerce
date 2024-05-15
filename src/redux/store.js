@@ -1,17 +1,19 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // Using local storage
-import shopSlice from './shopSlice'; // Your Redux slice
+import authSlice from './slices/authSlice';
+import shopSlice from './slices/shopSlice'; // Your Redux slice
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 
 const persistConfig = {
   key: 'root', // The key for the storage
   storage,
-  whitelist: ['shop'], // Specify which slices to persist
+  whitelist: ['shop', 'auth'], // Specify which slices to persist
 };
 
 const rootReducer = combineReducers({
   shop: shopSlice,
+  auth: authSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

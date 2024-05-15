@@ -8,6 +8,10 @@ import Product from './pages/shop/Product';
 import Wishlist from './pages/shop/Wishlist';
 import SearchPage from './pages/shop/SearchPage';
 import Login from './components/Login';
+import CreateAccount from './components/CreateAccount';
+import Account from './pages/shop/Account';
+import ForgotPassword from './pages/shop/ForgotPassword';
+import "./App.css";
 
 function App() {
   return (
@@ -19,7 +23,13 @@ function App() {
           <Route path="/category/:categoryId" element={<CategoryList />} />
           <Route path="/products/:id" element={<Product />} />
           <Route path="/search" element={<SearchPage />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/profile" />
+          <Route path="/addressbook" />
+          <Route path="/saved-payments" />
           <Route path="/login" element={<Login />} />
+          <Route path="/create-account" element={<CreateAccount />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/cart" element={<Cart />} />
         </Routes>

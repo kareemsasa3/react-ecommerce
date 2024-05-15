@@ -32,7 +32,7 @@
 .section-text {
   text-align: center; /* Align text to the left */
   padding-top: 2em;
-  padding-right: 8em; /* Padding for separation */
+  padding-left: 120px;
 }
 
 /* Styles for arrow icons used for navigation */
