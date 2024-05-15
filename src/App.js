@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Home from './pages/shop/Home';
 import CategoryList from './components/CategoryList';
+import FandomList from './components/FandomList';
 import Cart from './pages/shop/ShoppingCart';
 import Product from './pages/shop/Product';
 import Wishlist from './pages/shop/Wishlist';
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/category/:categoryId" element={<CategoryList />} />
+          <Route path="/fandom/:fandomId" element={<FandomList />}/>
           <Route path="/products/:id" element={<Product />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/account" element={<Account />} />

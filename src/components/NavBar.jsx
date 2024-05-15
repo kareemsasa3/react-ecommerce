@@ -3,10 +3,12 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Heart, ShoppingCart, UserCircle } from 'phosphor-react';
 import { Dropdown, Icon } from 'semantic-ui-react';
 import { fetchCategories } from '../api/spring/fetchCategories';
+import { fetchFandoms } from '../api/spring/fetchFandoms';
 import './NavBar.css';
 
 const NavBar = () => {
   const [isSearchVisible, setSearchVisible] = useState(true);
+  const [fandoms, setFandoms] = useState([]);
   const [categories, setCategories] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isNavbarVisible, setNavbarVisible] = useState(true);
@@ -66,7 +68,17 @@ const NavBar = () => {
       }
     };
 
+    const loadFandoms = async () => {
+      try {
+        const fetchedFandoms = await fetchFandoms();
+        setFandoms(fetchedFandoms);
+      } catch (error) {
+        console.error("Error loading fandoms:", error);
+      }
+    };
+
     loadCategories();
+    loadFandoms();
   }, []);
 
   useEffect(() => {
@@ -90,6 +102,19 @@ const NavBar = () => {
               <Link to="/">
                 <p>Curated Collectibles</p>
               </Link>
+            </li>
+            <li className='fandom-link'>
+              <Dropdown 
+                className='no-icon-dropdown'
+                text="FANDOMS">
+                  <Dropdown.Menu>
+                    {fandoms.map((fandom) => (
+                      <Dropdown.Item as={Link} key={fandom.id} to={`/fandom/${fandom.id}`}>
+                        {fandom.name}
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+              </Dropdown>
             </li>
             <li className="category-link">
               <Dropdown 

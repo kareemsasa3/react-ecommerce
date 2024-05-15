@@ -47,3 +47,13 @@ export const fetchCategoryByCategoryId = async (categoryId) => {
         throw error; // Re-throw to be handled by the calling function
     }
 };
+
+export const fetchFandomByFandomId = async (fandomId) => {
+    try {
+        const response = await axios.get(`http://localhost:8080/api/fandoms/${fandomId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching fandoms:', error);
+        throw error
+    }
+};
