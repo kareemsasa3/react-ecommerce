@@ -1,9 +1,9 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // Using local storage
-import authSlice from './slices/authSlice';
-import shopSlice from './slices/shopSlice'; // Your Redux slice
-import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
+import authReducer from './slices/authSlice';
+import shopReducer from './slices/shopSlice';
+import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist/es/constants';
 
 const persistConfig = {
   key: 'root', // The key for the storage
@@ -12,8 +12,8 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  shop: shopSlice,
-  auth: authSlice,
+  shop: shopReducer,
+  auth: authReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

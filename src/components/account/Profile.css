@@ -3,7 +3,7 @@
     width: 700px;
     margin: 0 auto;
     padding: 20px; /* Add padding around the container */
-    background-color: rgb(255, 255, 255); /* Light gray background color */
+    background-color: rgb(255, 255, 255);
     border: 1px solid #ffffff; /* Light border for definition */
     border-radius: 4px; /* Slightly rounded corners */
     display: flex;
@@ -86,6 +86,7 @@
 
 .sidebar {
   z-index: 999;
+  position: relative;
 }
 
 .transparent-button {
@@ -95,6 +96,7 @@
   padding: 10px; /* Add padding for spacing */
   cursor: pointer; /* Change cursor to indicate it's clickable */
   transition: all 0.3s ease; /* Smooth transition effect */
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .profile {

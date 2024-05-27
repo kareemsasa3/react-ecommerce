@@ -54,6 +54,16 @@ export const fetchFandomByFandomId = async (fandomId) => {
         return response.data;
     } catch (error) {
         console.error('Error fetching fandoms:', error);
-        throw error
+        throw error;
+    }
+};
+
+export const fetchAddressesByUserId = async (userId) => {
+    try {
+        const response = await axios.get(`http://localhost:8080/api/addresses/${userId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching addresses:', error);
+        throw error;
     }
 };

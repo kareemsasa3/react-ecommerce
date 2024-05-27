@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Grid, Loader, Button, Message } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
-import { fetchProductById } from '../../api/spring/fetchProducts';
-import { removeFromCart } from '../../redux/slices/shopSlice';
-import CartItems from '../../components/CartItems';
-import Summary from '../../components/Summary';
-import MostCommonCategory from '../../components/MostCommonCategory';
+import { fetchProductById } from '../../../api/spring/fetchProducts';
+import { removeFromCart } from '../../../redux/slices/shopSlice';
+import CartItems from '../../../components/lists/CartItems';
+import Summary from '../../../components/Summary';
+import MostCommonCategory from '../../../components/lists/MostCommonCategory';
 import './ShoppingCart.css';
 
 const ShoppingCart = () => {

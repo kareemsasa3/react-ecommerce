@@ -1,31 +1,32 @@
 import axios from 'axios';
 
-export const fetchLoginResult = async (email, password) => {
-  const baseUrl = 'http://localhost:8080';
-  const loginPath = '/api/auth/login';
-  const loginEndpoint = baseUrl + loginPath;
+const baseUrl = 'http://localhost:8080';
+const loginPath = '/api/auth/login';
+const loginEndpoint = baseUrl + loginPath;
 
+const fetchLoginResult = async (email, password) => {
   try {
     const response = await axios.post(loginEndpoint, {
-      email: email,
-      password: password
+      email,
+      password
     });
 
-    const token = response.data.token;
+    const { token, user } = response.data;
 
+    // Save token and user to local storage
     localStorage.setItem('jwtToken', token);
+    localStorage.setItem('user', JSON.stringify(user));
 
     return response.data;
   } catch (error) {
     if (error.response) {
-      const status = error.response.status;
-      const errorMessage = error.response.data;
+      const { status, data } = error.response;
 
       if (status === 401) {
         throw new Error('Invalid credentials');
       }
 
-      throw new Error(`Login failed: ${errorMessage}`);
+      throw new Error(`Login failed: ${data}`);
     } else if (error.request) {
       throw new Error('No response from server');
     } else {
@@ -33,3 +34,5 @@ export const fetchLoginResult = async (email, password) => {
     }
   }
 };
+
+export default fetchLoginResult;

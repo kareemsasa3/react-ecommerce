@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../redux/slices/authSlice';
-
-import ProductList from '../../components/ProductList';
-import SegmentListSlider from '../../components/SegmentListSlider';
 import { fetchProducts } from '../../api/spring/fetchProducts';
+import ProductList from '../../components/lists/ProductList';
+import SegmentListSlider from '../../components/SegmentListSlider';
 import { Button } from 'semantic-ui-react';
 import './Home.css';
 
@@ -36,12 +35,10 @@ const segmentSections = [
 const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [newArrivals, setNewArrivals] = useState([]);
-  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   const handleLogin = () => {
@@ -71,10 +68,6 @@ const Home = () => {
 
   if (isLoading) {
     return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
   }
 
   return (

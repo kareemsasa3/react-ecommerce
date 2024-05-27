@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { fetchCategoryByProductId } from '../api/spring/fetchById'; // Import the necessary functions
-import { fetchProducts } from '../api/spring/fetchProducts';
-import findMostCommonCategory from '../util/FindMostCommonCategory';
+import { fetchCategoryByProductId } from '../../api/spring/fetchById'; // Import the necessary functions
+import { fetchProducts } from '../../api/spring/fetchProducts';
+import findMostCommonCategory from '../../util/FindMostCommonCategory';
 import CategoryList from './CategoryList'; // Import CategoryList component
 import ProductList from './ProductList'; // Import ProductList for displaying products
 

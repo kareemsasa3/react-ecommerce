@@ -8,9 +8,9 @@ import {
   removeFromWishlist,
   addToCart,
   removeFromCart,
-} from '../redux/slices/shopSlice';
+} from '../../redux/slices/shopSlice';
 import './ProductList.css';
-import LoadingScreen from '../util/LoadingScreen';
+import LoadingScreen from '../../util/LoadingScreen';
 
 const ProductList = ({ products = [] }) => {
   const [isLoading, setIsLoading] = useState(products.length === 0);

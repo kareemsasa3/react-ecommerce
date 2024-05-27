@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchFandomByFandomId } from '../api/spring/fetchById';
+import { fetchFandomByFandomId } from '../../api/spring/fetchById';
 import ProductList from './ProductList';
 import { Loader, Grid, Header, Segment } from 'semantic-ui-react';
 import "./FandomList.css";

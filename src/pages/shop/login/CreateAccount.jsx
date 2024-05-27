@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Form, Segment, Icon } from 'semantic-ui-react';
-import { createNewUser } from '../api/spring/auth/createNewUser';
-import PasswordChecklist from './PasswordChecklist';
+import { createNewUser } from '../../../api/spring/auth/createNewUser';
+import PasswordChecklist from '../../../components/PasswordChecklist';
 import './CreateAccount.css';
 
 const CreateAccount = () => {

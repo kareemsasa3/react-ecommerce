@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Loader } from 'semantic-ui-react';
-import { fetchProductById } from '../../api/spring/fetchProducts';
-import ProductList from '../../components/ProductList'; // Import ProductList
+import { fetchProductById } from '../../../api/spring/fetchProducts';
+import ProductList from '../../../components/lists/ProductList'; // Import ProductList
 import "./Wishlist.css";
 
 const Wishlist = () => {

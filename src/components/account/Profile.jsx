@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Grid, Label, Icon } from 'semantic-ui-react';
+import { Grid, Label, Icon } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import SideBar from '../SideBar';
@@ -7,7 +7,7 @@ import './Profile.css';
 
 const Profile = () => {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
-  const [isSidebarVisible, setSidebarVisible] = useState(false);
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const navigate = useNavigate();
 
   if (!isAuthenticated) {
@@ -20,7 +20,7 @@ const Profile = () => {
   };
 
   const toggleSidebar = (event) => {
-    setSidebarVisible(!isSidebarVisible); // Toggle the sidebar's visibility
+    setIsSidebarVisible(!isSidebarVisible); // Toggle the sidebar's visibility
   };
 
   const endpoints = [
@@ -93,9 +93,10 @@ const Profile = () => {
       
 
       {isSidebarVisible && (
-        <div
+        <button
           className="sidebar-overlay"
-          onClick={() => setSidebarVisible(false)} // Close sidebar on click
+          onClick={() => setIsSidebarVisible(false)} // Close sidebar on click
+          aria-label="Close Sidebar"
         />
       )}
 
@@ -104,7 +105,7 @@ const Profile = () => {
         <SideBar
           endpoints={endpoints}
           visible={isSidebarVisible} // Pass the sidebar visibility
-          onClose={() => setSidebarVisible(false)} // Close the sidebar
+          onClose={() => setIsSidebarVisible(false)} // Close the sidebar
         />
       </div>
     </div>

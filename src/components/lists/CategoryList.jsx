@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'; // For URL params
 import { 
   fetchProductsByCategoryId, 
   fetchCategoryByCategoryId,
-} from '../api/spring/fetchById';
+} from '../../api/spring/fetchById';
 import ProductList from './ProductList';
 import { Loader, Grid, Header, Segment } from 'semantic-ui-react';
 import "./CategoryList.css"; // Custom styles

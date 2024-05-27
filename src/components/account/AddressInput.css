@@ -1,0 +1,39 @@
+/* AddressInput.css */
+
+.address-input-container {
+    margin-bottom: 20px;
+  }
+  
+  .address-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: small;
+  }
+  
+  .required-label {
+    color: red; /* Set the color of the asterisk to red */
+  }
+  
+  .location-search-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .autocomplete-dropdown-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  .suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .suggestion-item--active {
+    background-color: #fafafa;
+  }
+  

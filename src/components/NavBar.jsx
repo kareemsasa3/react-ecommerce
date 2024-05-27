@@ -13,6 +13,7 @@ const NavBar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isNavbarVisible, setNavbarVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [hoveredDropdown, setHoveredDropdown] = useState(null);
   
   const navigate = useNavigate();
   const searchRef = useRef(null);
@@ -56,6 +57,14 @@ const NavBar = () => {
 
   const handleResize = () => {
     setSearchVisible(window.innerWidth > 800);
+  };
+
+  const handleDropdownEnter = (dropdown) => {
+    setHoveredDropdown(dropdown);
+  };
+
+  const handleDropdownLeave = () => {
+    setHoveredDropdown(null);
   };
 
   useEffect(() => {
@@ -103,23 +112,35 @@ const NavBar = () => {
                 <p>Curated Collectibles</p>
               </Link>
             </li>
-            <li className='fandom-link'>
+            <li 
+              className='fandom-link'
+              onMouseEnter={() => handleDropdownEnter('fandom')}
+              onMouseLeave={() => handleDropdownLeave()}
+            >
               <Dropdown 
                 className='no-icon-dropdown'
-                text="FANDOMS">
-                  <Dropdown.Menu>
-                    {fandoms.map((fandom) => (
-                      <Dropdown.Item as={Link} key={fandom.id} to={`/fandom/${fandom.id}`}>
-                        {fandom.name}
-                      </Dropdown.Item>
-                    ))}
-                  </Dropdown.Menu>
+                text="FANDOMS"
+                open={hoveredDropdown === 'fandom'}
+              >
+                <Dropdown.Menu>
+                  {fandoms.map((fandom) => (
+                    <Dropdown.Item as={Link} key={fandom.id} to={`/fandom/${fandom.id}`}>
+                      {fandom.name}
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
               </Dropdown>
             </li>
-            <li className="category-link">
+            <li
+              className="category-link"
+              onMouseEnter={() => handleDropdownEnter('category')}
+              onMouseLeave={() => handleDropdownLeave()}
+            >
               <Dropdown 
                 className="no-icon-dropdown"
-                text='CATEGORY'>
+                text='CATEGORY'
+                open={hoveredDropdown === 'category'}
+              >
                 <Dropdown.Menu>
                   {categories.map((category) => (
                     <Dropdown.Item as={Link} key={category.id} to={`/category/${category.id}`}>

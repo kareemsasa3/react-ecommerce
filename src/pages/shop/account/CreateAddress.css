@@ -1,0 +1,120 @@
+/* CreateAddress.css */
+.page-container {
+    width: 100%;
+    background-color: rgb(242, 243, 247);
+}
+
+.create-address-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 120px 0px 0px 0px; /* Add padding around the container */
+    background-color: rgb(255, 255, 255, 0);
+    border-radius: 4px; /* Slightly rounded corners */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.address-book-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding-right: 450px;
+}
+
+/* Styling for the header */
+.account-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f0f0f000;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0px 10px 0px;
+}
+
+.account-header .account-title {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+    font-size: medium;
+}
+
+.account-header .icon {
+    margin-right: 20px;
+}
+
+.account-header span {
+    margin-right: auto;
+}
+
+.account-details {
+    width: 700px;
+}
+
+.create-address-form {
+    width: 100%;
+    padding: 20px 0px 15px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: left; /* Center align all children elements */
+}
+
+/* Styling for input fields */
+.create-address-form input {
+    padding: 10px; /* Padding for input fields */
+    border: 1.5px solid #000000; /* Border style */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+}
+
+.create-address-form input:focus {
+    border-color: #2185d0; /* Semantic UI blue on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Styling for buttons */
+.create-address-form .submit-button, .create-address-form .cancel-button {
+    background-color: black; /* Set the background color to black */
+    color: white; /* White text for contrast */
+    border: none; /* Remove borders if needed */
+    border-radius: 20px;
+    padding: 15px; /* Padding for button */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: all 0.3s ease; /* Smooth transition effect */
+    max-width: 100%; /* Max width for buttons */
+    margin-top: 15px; /* Vertical margin */
+    margin-left: 75px;
+    width: 200px; /* Width for buttons */
+}
+
+.create-address-form .submit-button:hover, .create-address-form .cancel-button:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+
+/* CSS for the overlay when the sidebar is open */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Cover the entire viewport */
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    z-index: 998; /* Ensure it's above other elements */
+    cursor: pointer; /* Change cursor to indicate it's clickable */
+    border-color: rgba(255, 255, 255, 0);
+}
+
+.sidebar {
+    z-index: 999;
+    position: relative;
+}
+
+.error-message {
+    color: red; /* Red color for error messages */
+    font-size: 14px; /* Smaller font size for error messages */
+    margin-bottom: 10px;
+}
