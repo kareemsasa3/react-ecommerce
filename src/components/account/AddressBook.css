@@ -1,0 +1,40 @@
+.address-book-container {
+    width: 700px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #ffffff; /* Light border for definition */
+    border-radius: 4px; /* Slightly rounded corners */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    padding-bottom: 30px;
+}
+
+/* Styling for labels */
+.address-book-container .ui.label {
+    font-size: medium;
+    font-weight: bolder; /* Make labels bold */
+    color: inherit; /* Keep the existing text color */
+    background-color: white;
+}
+
+.address-book-container p {
+    padding-right: 175px;
+    margin: 5px 0; /* Margins for text content */
+    color: #000000; /* Dark text color for contrast */
+}
+
+.add-new-address-button {
+    background-color: transparent; /* Remove background color */
+    border: none; /* Remove border */
+    color: inherit; /* Keep the existing text color */
+    cursor: pointer; /* Change cursor to indicate it's clickable */
+    transition: all 0.3s ease; /* Smooth transition effect */
+    padding-top: 20px;
+}
+
+.button-text {
+    padding-left: 0px;
+    font-family: 'Courier New', Courier, monospace;
+}

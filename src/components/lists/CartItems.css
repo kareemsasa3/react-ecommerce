@@ -1,0 +1,57 @@
+.cart-product-info {
+    display: flex; /* Use flexbox for alignment */
+    justify-content: space-between; /* Align elements with space between */
+    align-items: center; /* Center alignment vertically */
+    flex-grow: 1;
+}
+
+.cart-product-info .remove-button {
+    flex-shrink: 0; /* Prevent button from shrinking */
+    margin-left: auto;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+
+.cart-product {
+    display: flex; /* Flex layout for product segments */
+    align-items: center; /* Align content vertically */
+    margin-bottom: 15px; /* Space between products */
+}
+
+.cart-product-image {
+    width: 15em; /* Set a fixed width for product images */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 15px; /* Space between image and product details */
+}
+
+.cart-product-details {
+    flex: 1; /* Allow product details to take the remaining space */
+}
+
+.checkout-info .button {
+    background-color: #000000; /* Primary button color */
+    color: white; /* Button text color */
+    padding: 10px 20px; /* Padding for the button */
+    border: none; /* Remove button border */
+    border-radius: 5px; /* Rounded corners */
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.cart-product-details .product-description {
+    margin-bottom: 0%; /* Space below the product description */
+    color: #000000; /* Text color for readability */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: larger;
+}
+
+.cart-product-details .product-name {
+    margin-top: 2%;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: larger;
+}
+
+.cart-product-details p {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: large;
+}
+

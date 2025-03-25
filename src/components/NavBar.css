@@ -1,0 +1,94 @@
+.navbar {
+  position: fixed;
+  top: 0; /* Stay at the top */
+  width: 100%;
+  color: white; /* Text color */
+  z-index: 10; /* High z-index to ensure it stays on top */
+  transition: top 0.6s; /* Smooth transition for hide/show */
+  background-color: rgb(0, 0, 0);
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  padding: 0px 10px 0px 10px;
+}
+
+.navbar.hidden {
+  top: -110px;
+}
+
+.navbar.visible {
+  top: 0;
+}
+
+.nav-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  list-style-type: none;
+}
+
+.nav-list .main-content,
+.nav-list .side-content {
+  display: flex;
+  align-items: center;
+}
+
+.ui.search {
+  display: inline-block;
+}
+
+@media (max-width: 600px) {
+  .ui.search .ui.input {
+    display: none; /* Hide the search input */
+  }
+
+  .search-icon {
+    display: inline-block; /* Display the search icon */
+  }
+}
+
+.nav-list li {
+  padding: 10px;
+  transition: color 0.2s, background-color 0.2s; /* Smooth transitions for hover effects */
+}
+
+.nav-list li a {
+  color: white;
+  text-decoration: none;
+}
+
+.nav-list li a:hover {
+  color: #2185d0; /* Semantic UI's blue color for hover effect */
+}
+
+.nav-list .home-link {
+  margin-right: auto;
+}
+
+.nav-list .category-link {
+  margin-right: 20px; /* Adjusted spacing for visual separation */
+}
+
+.no-icon-dropdown .dropdown.icon {
+  display: none; /* Prevents the icon from being displayed */
+}
+
+.nav-list .side-content li {
+  margin-left: 10px; /* Adjust spacing between items */
+}
+
+.nav-list .ui.search .prompt {
+  color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
+  transition: border-color 0.3s;
+  font-size: 12px;
+  width: 220px;
+}
+
+.nav-list .ui.search .prompt:focus {
+  border-color: #abb6ce; /* Change border color when input is focused */
+}
+
+  
+  

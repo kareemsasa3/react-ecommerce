@@ -1,0 +1,105 @@
+/* Main container for the segment list slider */
+.segment-list-slider {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+  height: 400px; /* Fixed height */
+  position: relative; /* Required for absolute positioning of arrows */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: background 0.3s;
+}
+
+/* The content within the segment list slider */
+.segment-content {
+  display: flex;
+  flex-direction: row; /* Horizontal layout */
+  justify-content: space-between; /* Spread content evenly */
+  align-items: center; /* Align vertically */
+}
+
+/* Image style for the segments */
+.segment-image {
+  max-width: 100%; /* Ensure the image doesn't exceed this width */
+  height: 360px; /* Fixed height for consistent layout */
+  border-radius: 10px; /* Rounded corners */
+  margin-left: 50px; /* Space between elements */
+}
+
+/* Style for the text in the segments */
+.section-text {
+  text-align: center; /* Align text to the left */
+  padding-top: 2em;
+  padding-left: 120px;
+}
+
+/* Styles for arrow icons used for navigation */
+.arrow {
+  position: absolute; /* Absolute position for consistent placement */
+  font-size: 40px; /* Font size for arrow visibility */
+  cursor: pointer; /* Cursor change on hover */
+  user-select: none; /* Prevent text selection */
+  background: rgba(231, 215, 215, 0);
+  color: rgba(0, 0, 0, 0.973);
+  border: none;
+  border-radius: 10px;
+}
+
+.arrow:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.arrow.left {
+  left: 20px; /* Distance from the left edge */
+  top: 50%; /* Vertically centered */
+  transform: translateY(-50%); /* Adjust vertical centering */
+}
+
+.arrow.right {
+  right: 20px; /* Distance from the right edge */
+  top: 50%; /* Vertically centered */
+  transform: translateY(-50%); /* Adjust vertical centering */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .segment-list-slider {
+    padding: 20px; /* Adjust padding for smaller screens */
+  }
+
+  .segment-content {
+    flex-direction: column; /* Stack content vertically */
+    text-align: center; /* Center text for smaller screens */
+  }
+
+  .segment-image {
+    width: 80%; /* Adjusted width for smaller screens */
+  }
+}
+
+.dots-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dot {
+  width: 10px; /* Size of the dot */
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgb(174, 156, 156); /* Default color */
+  margin: 0 12px; /* Space between dots */
+  cursor: pointer; /* Change cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition */
+  border: none;
+}
+
+.dot:hover {
+  background-color: rgb(117, 103, 103); /* Change color on hover */
+}
+
+.dot.active {
+  background-color: black; /* Active dot color */
+}

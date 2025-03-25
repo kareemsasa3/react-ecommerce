@@ -1,0 +1,105 @@
+/* Styling for the main container */
+.profile-container {
+    width: 700px;
+    margin: 0 auto;
+    padding: 20px; /* Add padding around the container */
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #ffffff; /* Light border for definition */
+    border-radius: 4px; /* Slightly rounded corners */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Styling for grid layout */
+.profile-container .ui.grid {
+  margin: 0; /* Reset default margin */
+  padding: 0; /* Reset default padding */
+}
+
+/* Styling for grid rows and columns */
+.profile-container .ui.grid .row {
+  padding: 14px 10px; /* Add padding to rows */
+}
+
+/* Remove border from the last row */
+.profile-container .ui.grid .row:last-child {
+  border-bottom: none;
+}
+
+/* Styling for labels */
+.profile-container .ui.label {
+  font-size: medium;
+  font-weight: bolder; /* Make labels bold */
+  color: #000000; /* Gray color for labels */
+  background-color: white;
+}
+
+/* Styling for text content */
+.profile-container p {
+  padding-left: 10px;
+  margin: 5px 0; /* Margins for text content */
+  color: #000000; /* Dark text color for contrast */
+}
+
+.profile-header {
+  width: 698px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 10px 0px 10px;
+  background-color: #f0f0f000;
+  border-bottom: 1px solid #ddd;
+}
+
+.profile-header .profile-title {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bolder;
+  font-size: medium;
+}
+
+.profile-header .icon {
+  margin-right: 20px;
+}
+
+.profile-header span {
+  margin-right: auto;
+}
+
+.profile-details {
+  padding-top: 30px;
+}
+
+/* CSS for the overlay when the sidebar is open */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; /* Cover the entire viewport */
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  z-index: 998; /* Ensure it's above other elements */
+  cursor: pointer; /* Change cursor to indicate it's clickable */
+}
+
+.sidebar {
+  z-index: 999;
+  position: relative;
+}
+
+.transparent-button {
+  background-color: transparent; /* Remove background color */
+  border: none; /* Remove border */
+  color: inherit; /* Keep the existing text color */
+  padding: 10px; /* Add padding for spacing */
+  cursor: pointer; /* Change cursor to indicate it's clickable */
+  transition: all 0.3s ease; /* Smooth transition effect */
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.profile {
+  font-weight: bolder;
+  font-size: 32px;
+}

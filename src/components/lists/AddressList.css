@@ -1,0 +1,38 @@
+/* Styling for grid layout in AddressList */
+.address-book-details .ui.grid {
+    margin: 0; /* Reset default margin */
+    padding: 0; /* Reset default padding */
+}
+
+.address-book-details .ui.grid .row {
+    padding: 10px 0px 10px; /* Add padding to rows */
+}
+
+/* Remove border from the last row */
+.address-book-details .ui.grid .row:last-child {
+    border-bottom: none;
+}
+
+.address-book-details {
+    padding-top: 40px;
+}
+
+.address-book-title {
+    white-space: nowrap;
+    font-weight: bolder;
+    font-size: 32px;
+}
+
+.address-list {
+    padding: 30px 0px 30px 10px;
+}
+
+.transparent-button {
+    background-color: transparent; /* Remove background color */
+    border: none; /* Remove border */
+    color: inherit; /* Keep the existing text color */
+    padding: 10px; /* Add padding for spacing */
+    cursor: pointer; /* Change cursor to indicate it's clickable */
+    transition: all 0.3s ease; /* Smooth transition effect */
+    font-family: 'Courier New', Courier, monospace;
+}

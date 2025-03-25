@@ -1,0 +1,51 @@
+/* Home.css */
+.home {
+  background-color: rgb(242, 243, 247);
+}
+
+/* Global heading styles */
+h2 {
+  color: rgb(0, 0, 0); /* Black text */
+  text-align: left; /* Align text to the left */
+}
+
+/* Hero section styles */
+.hero {
+  background: black; /* Background color for the hero */
+  color: white; /* White text color */
+  text-align: center; /* Center text */
+  padding-top: 120px; /* Top padding */
+  padding-bottom: 60px; /* Bottom padding */
+  width: 100%; /* Full width */
+}
+
+.hero h1 {
+  font-size: 40px; /* Large font size for the header */
+  font-weight: bold; /* Bold font style */
+}
+
+.hero p {
+  font-size: 18px; /* Standard font size for the paragraph */
+}
+
+/* Featured products section */
+.featured-products {
+  background: rgb(247, 249, 253); /* Background color for the featured products */
+}
+
+.featured-products .featured-title {
+  padding-top: 30px; /* Padding for spacing */
+  padding-left: 30px; /* Padding for alignment */
+  font-family: 'Courier New', Courier, monospace; /* Font family */
+  font-size: 32px; /* Large font size */
+}
+
+/* New arrivals section */
+.new-arrivals {
+  background: rgb(247, 249, 253); /* Background color for new arrivals */
+}
+
+.new-arrivals .new-arrivals-title {
+  font-family: 'Courier New', Courier, monospace; /* Font family */
+  font-size: 32px; /* Large font size */
+}

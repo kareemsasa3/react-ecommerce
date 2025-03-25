@@ -1,0 +1,36 @@
+.shopping-cart {
+    background: rgb(247, 249, 253);
+}
+
+.shopping-cart .my-cart {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.my-cart {
+    font-size: 60px;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.empty-cart {
+    display: flex;
+    padding-top: 100px;
+    padding-bottom: 40px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: rgb(247, 249, 253);
+}
+
+.empty-cart .empty-label {
+    font-size: 32px;
+    padding-bottom: 10px;
+}
+
+.empty-cart .continue-shopping {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    color: rgb(255, 255, 255);
+    background: rgb(0, 0, 0);
+    border-radius: 20px;
+}
