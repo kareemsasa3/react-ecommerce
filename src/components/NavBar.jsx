@@ -76,6 +76,8 @@ const NavBar = () => {
     loadFandoms();
   }, []);
 
+  console.log(fandoms);
+
   useEffect(() => {
     const handleOutsideClick = (e) => {
       if (
