@@ -1,18 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
-import './SegmentListSlider.css'; // Include your custom CSS
+import React, { useState, useEffect, useRef } from "react";
+import PropTypes from "prop-types";
+import "./SegmentListSlider.css"; // Include your custom CSS
 
 const SegmentListSlider = ({ segments }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const intervalRef = useRef(null);
-
-  const startAutoTransition = () => {
-    intervalRef.current = setInterval(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === segments.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 7000); // Auto-transition every 7 seconds
-  };
 
   const stopAutoTransition = () => {
     clearInterval(intervalRef.current); // Clear the interval
@@ -20,7 +12,7 @@ const SegmentListSlider = ({ segments }) => {
 
   const manualTransition = (direction) => {
     stopAutoTransition(); // Stop auto-transition
-    if (direction === 'left') {
+    if (direction === "left") {
       setCurrentIndex((prevIndex) =>
         prevIndex === 0 ? segments.length - 1 : prevIndex - 1
       );
@@ -32,11 +24,11 @@ const SegmentListSlider = ({ segments }) => {
   };
 
   const handlePrevious = () => {
-    manualTransition('left');
+    manualTransition("left");
   };
 
   const handleNext = () => {
-    manualTransition('right');
+    manualTransition("right");
   };
 
   const handleDotClick = (index) => {
@@ -48,12 +40,20 @@ const SegmentListSlider = ({ segments }) => {
 
   const backgroundStyle = currentSection.background
     ? { backgroundImage: `url(${currentSection.background})` }
-    : { backgroundColor: 'lightgray' };
+    : { backgroundColor: "lightgray" };
 
   useEffect(() => {
+    const startAutoTransition = () => {
+      intervalRef.current = setInterval(() => {
+        setCurrentIndex((prevIndex) =>
+          prevIndex === segments.length - 1 ? 0 : prevIndex + 1
+        );
+      }, 7000); // Auto-transition every 7 seconds
+    };
+
     startAutoTransition();
     return () => clearInterval(intervalRef.current);
-  }, []);
+  }, [segments.length]);
 
   return (
     <section className="segment-list-slider" style={backgroundStyle}>
@@ -76,12 +76,12 @@ const SegmentListSlider = ({ segments }) => {
           <i className="angle right icon arrow-icon"></i>
         </button>
       </div>
-      
+
       <div className="dots-container">
         {segments.map((_, index) => (
           <button
             key={index}
-            className={`dot ${index === currentIndex ? 'active' : ''}`}
+            className={`dot ${index === currentIndex ? "active" : ""}`}
             onClick={() => handleDotClick(index)}
             aria-label={`Go to segment ${index + 1}`}
           />
