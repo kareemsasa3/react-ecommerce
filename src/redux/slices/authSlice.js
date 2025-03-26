@@ -1,17 +1,20 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 // Define the login async thunk
 export const login = createAsyncThunk(
-  'auth/login',
+  "auth/login",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/login', { email, password });
+      const response = await axios.post(
+        "spring-boot-ecommerce.railway.internal/api/auth/login",
+        { email, password }
+      );
       const { token, user } = response.data;
 
       // Save token and user to localStorage
-      localStorage.setItem('jwtToken', token);
-      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem("jwtToken", token);
+      localStorage.setItem("user", JSON.stringify(user));
 
       return { token, user };
     } catch (error) {
@@ -22,13 +25,13 @@ export const login = createAsyncThunk(
 
 const initialState = {
   isAuthenticated: false,
-  token: localStorage.getItem('jwtToken') || null,
-  user: JSON.parse(localStorage.getItem('user')) || null,
+  token: localStorage.getItem("jwtToken") || null,
+  user: JSON.parse(localStorage.getItem("user")) || null,
   error: null,
 };
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     logout(state) {
@@ -36,8 +39,8 @@ const authSlice = createSlice({
       state.token = null;
       state.user = null;
       state.error = null;
-      localStorage.removeItem('jwtToken');
-      localStorage.removeItem('user');
+      localStorage.removeItem("jwtToken");
+      localStorage.removeItem("user");
     },
     clearError(state) {
       state.error = null;

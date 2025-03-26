@@ -1,21 +1,21 @@
-import axios from 'axios';
+import axios from "axios";
 
-const baseUrl = 'http://localhost:8080';
-const loginPath = '/api/auth/login';
+const baseUrl = "spring-boot-ecommerce.railway.internal";
+const loginPath = "/api/auth/login";
 const loginEndpoint = baseUrl + loginPath;
 
 const fetchLoginResult = async (email, password) => {
   try {
     const response = await axios.post(loginEndpoint, {
       email,
-      password
+      password,
     });
 
     const { token, user } = response.data;
 
     // Save token and user to local storage
-    localStorage.setItem('jwtToken', token);
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem("jwtToken", token);
+    localStorage.setItem("user", JSON.stringify(user));
 
     return response.data;
   } catch (error) {
@@ -23,12 +23,12 @@ const fetchLoginResult = async (email, password) => {
       const { status, data } = error.response;
 
       if (status === 401) {
-        throw new Error('Invalid credentials');
+        throw new Error("Invalid credentials");
       }
 
       throw new Error(`Login failed: ${data}`);
     } else if (error.request) {
-      throw new Error('No response from server');
+      throw new Error("No response from server");
     } else {
       throw new Error(`Error: ${error.message}`);
     }

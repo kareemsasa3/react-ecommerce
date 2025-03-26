@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 /**
  * Fetches products by category ID.
@@ -7,13 +7,14 @@ import axios from 'axios';
  * @returns {Promise<Array>} - A promise resolving to an array of products.
  */
 export const fetchProductsByCategoryId = async (categoryId) => {
-    try {
-        const response = await axios.get(`http://localhost:8080/api/products/by-category/${categoryId}`);
-        return response.data; // Return the list of products
-    } catch (error) {
-        console.error('Error fetching products by category:', error);
-        throw error; // Re-throw to be handled by the calling function
-    }
+  try {
+    const response = await axios.get(`spring-boot-ecommerce.railway.internal
+/api/products/by-category/${categoryId}`);
+    return response.data; // Return the list of products
+  } catch (error) {
+    console.error("Error fetching products by category:", error);
+    throw error; // Re-throw to be handled by the calling function
+  }
 };
 
 /**
@@ -23,13 +24,15 @@ export const fetchProductsByCategoryId = async (categoryId) => {
  * @returns {Promise<Object>} A promise that resolves to the category object.
  */
 export const fetchCategoryByProductId = async (productId) => {
-    try {
-        const response = await axios.get(`http://localhost:8080/api/products/category-by-product/${productId}`);
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching category id by product id:', error);
-        throw error;
-    }
+  try {
+    const response = await axios.get(
+      `spring-boot-ecommerce.railway.internal/api/products/category-by-product/${productId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching category id by product id:", error);
+    throw error;
+  }
 };
 
 /**
@@ -39,31 +42,37 @@ export const fetchCategoryByProductId = async (productId) => {
  * @returns {Promise<Object>} A promise that resolves to the category object.
  */
 export const fetchCategoryByCategoryId = async (categoryId) => {
-    try {
-        const response = await axios.get(`http://localhost:8080/api/categories/${categoryId}`); // Adjust the endpoint URL
-        return response.data; // Return the array of categories
-    } catch (error) {
-        console.error('Error fetching categories:', error); // Log any errors
-        throw error; // Re-throw to be handled by the calling function
-    }
+  try {
+    const response = await axios.get(
+      `spring-boot-ecommerce.railway.internal/api/categories/${categoryId}`
+    ); // Adjust the endpoint URL
+    return response.data; // Return the array of categories
+  } catch (error) {
+    console.error("Error fetching categories:", error); // Log any errors
+    throw error; // Re-throw to be handled by the calling function
+  }
 };
 
 export const fetchFandomByFandomId = async (fandomId) => {
-    try {
-        const response = await axios.get(`http://localhost:8080/api/fandoms/${fandomId}`);
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching fandoms:', error);
-        throw error;
-    }
+  try {
+    const response = await axios.get(
+      `spring-boot-ecommerce.railway.internal/api/fandoms/${fandomId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching fandoms:", error);
+    throw error;
+  }
 };
 
 export const fetchAddressesByUserId = async (userId) => {
-    try {
-        const response = await axios.get(`http://localhost:8080/api/addresses/${userId}`);
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching addresses:', error);
-        throw error;
-    }
+  try {
+    const response = await axios.get(
+      `spring-boot-ecommerce.railway.internal/api/addresses/${userId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching addresses:", error);
+    throw error;
+  }
 };
