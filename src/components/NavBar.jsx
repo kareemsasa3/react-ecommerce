@@ -76,8 +76,6 @@ const NavBar = () => {
     loadFandoms();
   }, []);
 
-  console.log(fandoms);
-
   useEffect(() => {
     const handleOutsideClick = (e) => {
       if (
@@ -125,15 +123,19 @@ const NavBar = () => {
                 open={hoveredDropdown === "fandom"}
               >
                 <Dropdown.Menu>
-                  {fandoms.map((fandom) => (
-                    <Dropdown.Item
-                      as={Link}
-                      key={fandom.id}
-                      to={`/fandom/${fandom.id}`}
-                    >
-                      {fandom.name}
-                    </Dropdown.Item>
-                  ))}
+                  {fandoms && fandoms.length > 0 ? (
+                    fandoms.map((fandom) => (
+                      <Dropdown.Item
+                        as={Link}
+                        key={fandom.id}
+                        to={`/fandom/${fandom.id}`}
+                      >
+                        {fandom.name}
+                      </Dropdown.Item>
+                    ))
+                  ) : (
+                    <p>No fandoms available</p>
+                  )}
                 </Dropdown.Menu>
               </Dropdown>
             </li>
@@ -148,15 +150,19 @@ const NavBar = () => {
                 open={hoveredDropdown === "category"}
               >
                 <Dropdown.Menu>
-                  {categories.map((category) => (
-                    <Dropdown.Item
-                      as={Link}
-                      key={category.id}
-                      to={`/category/${category.id}`}
-                    >
-                      {category.name}
-                    </Dropdown.Item>
-                  ))}
+                  {categories && categories.length > 0 ? (
+                    categories.map((category) => (
+                      <Dropdown.Item
+                        as={Link}
+                        key={category.id}
+                        to={`/category/${category.id}`}
+                      >
+                        {category.name}
+                      </Dropdown.Item>
+                    ))
+                  ) : (
+                    <p>No categories available</p>
+                  )}
                 </Dropdown.Menu>
               </Dropdown>
             </li>
