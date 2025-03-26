@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { Heart, ShoppingCart, UserCircle } from 'phosphor-react';
-import { Dropdown, Icon } from 'semantic-ui-react';
-import { fetchCategories } from '../api/spring/fetchCategories';
-import { fetchFandoms } from '../api/spring/fetchFandoms';
-import './NavBar.css';
+import React, { useEffect, useState, useCallback, useRef } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { Heart, ShoppingCart, UserCircle } from "phosphor-react";
+import { Dropdown, Icon } from "semantic-ui-react";
+import { fetchCategories } from "../api/spring/fetchCategories";
+import { fetchFandoms } from "../api/spring/fetchFandoms";
+import "./NavBar.css";
 
 const NavBar = () => {
   const [isSearchVisible, setSearchVisible] = useState(true);
@@ -14,12 +14,12 @@ const NavBar = () => {
   const [isNavbarVisible, setNavbarVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [hoveredDropdown, setHoveredDropdown] = useState(null);
-  
+
   const navigate = useNavigate();
   const searchRef = useRef(null);
 
   const isUserLoggedIn = () => {
-    const token = localStorage.getItem('jwtToken');
+    const token = localStorage.getItem("jwtToken");
     return token !== null;
   };
 
@@ -35,16 +35,6 @@ const NavBar = () => {
     setSearchVisible(!isSearchVisible);
   };
 
-  const handleOutsideClick = (e) => {
-    if (
-      searchRef.current &&
-      !searchRef.current.contains(e.target) &&
-      window.innerWidth < 800
-    ) {
-      setSearchVisible(false);
-    }
-  };
-
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
     if (currentScrollY > lastScrollY && currentScrollY > 100) {
@@ -54,10 +44,6 @@ const NavBar = () => {
     }
     setLastScrollY(currentScrollY);
   }, [lastScrollY]);
-
-  const handleResize = () => {
-    setSearchVisible(window.innerWidth > 800);
-  };
 
   const handleDropdownEnter = (dropdown) => {
     setHoveredDropdown(dropdown);
@@ -91,40 +77,58 @@ const NavBar = () => {
   }, []);
 
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('mousedown', handleOutsideClick);
-    window.addEventListener('scroll', handleScroll);
+    const handleOutsideClick = (e) => {
+      if (
+        searchRef.current &&
+        !searchRef.current.contains(e.target) &&
+        window.innerWidth < 800
+      ) {
+        setSearchVisible(false);
+      }
+    };
+
+    const handleResize = () => {
+      setSearchVisible(window.innerWidth > 800);
+    };
+
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("mousedown", handleOutsideClick);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousedown', handleOutsideClick); // Clean up
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("mousedown", handleOutsideClick);
+      window.removeEventListener("scroll", handleScroll);
     };
-  }, [handleResize, handleOutsideClick, handleScroll]);
+  }, [handleScroll]);
 
   return (
-    <header className={`navbar ${isNavbarVisible ? 'visible' : 'hidden'}`}>
+    <header className={`navbar ${isNavbarVisible ? "visible" : "hidden"}`}>
       <nav>
-        <ul className='nav-list'>
-          <div className='main-content'>
-            <li className='home-link'>
+        <ul className="nav-list">
+          <div className="main-content">
+            <li className="home-link">
               <Link to="/">
                 <p>Curated Collectibles</p>
               </Link>
             </li>
-            <li 
-              className='fandom-link'
-              onMouseEnter={() => handleDropdownEnter('fandom')}
+            <li
+              className="fandom-link"
+              onMouseEnter={() => handleDropdownEnter("fandom")}
               onMouseLeave={() => handleDropdownLeave()}
             >
-              <Dropdown 
-                className='no-icon-dropdown'
+              <Dropdown
+                className="no-icon-dropdown"
                 text="FANDOMS"
-                open={hoveredDropdown === 'fandom'}
+                open={hoveredDropdown === "fandom"}
               >
                 <Dropdown.Menu>
                   {fandoms.map((fandom) => (
-                    <Dropdown.Item as={Link} key={fandom.id} to={`/fandom/${fandom.id}`}>
+                    <Dropdown.Item
+                      as={Link}
+                      key={fandom.id}
+                      to={`/fandom/${fandom.id}`}
+                    >
                       {fandom.name}
                     </Dropdown.Item>
                   ))}
@@ -133,44 +137,52 @@ const NavBar = () => {
             </li>
             <li
               className="category-link"
-              onMouseEnter={() => handleDropdownEnter('category')}
+              onMouseEnter={() => handleDropdownEnter("category")}
               onMouseLeave={() => handleDropdownLeave()}
             >
-              <Dropdown 
+              <Dropdown
                 className="no-icon-dropdown"
-                text='CATEGORY'
-                open={hoveredDropdown === 'category'}
+                text="CATEGORY"
+                open={hoveredDropdown === "category"}
               >
                 <Dropdown.Menu>
                   {categories.map((category) => (
-                    <Dropdown.Item as={Link} key={category.id} to={`/category/${category.id}`}>
+                    <Dropdown.Item
+                      as={Link}
+                      key={category.id}
+                      to={`/category/${category.id}`}
+                    >
                       {category.name}
                     </Dropdown.Item>
                   ))}
                 </Dropdown.Menu>
               </Dropdown>
             </li>
-            <li className='featured-link'>FEATURED</li>
+            <li className="featured-link">FEATURED</li>
           </div>
 
-          <div className='side-content'>
+          <div className="side-content">
             <li>
               <form onSubmit={handleSearch}>
                 <div className="ui search">
-                    {isSearchVisible ? (
-                      <div className="ui icon input">
-                        <input
-                          className="prompt"
-                          type="text"
-                          placeholder="SEARCH"
-                          value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
-                        />
-                        <Icon name="search" size="large" />
-                      </div>
-                    ): (
-                      <Icon name="search" size="large" onClick={handleIconClick}/>
-                    )}
+                  {isSearchVisible ? (
+                    <div className="ui icon input">
+                      <input
+                        className="prompt"
+                        type="text"
+                        placeholder="SEARCH"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                      />
+                      <Icon name="search" size="large" />
+                    </div>
+                  ) : (
+                    <Icon
+                      name="search"
+                      size="large"
+                      onClick={handleIconClick}
+                    />
+                  )}
                 </div>
               </form>
             </li>
