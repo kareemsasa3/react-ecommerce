@@ -1,21 +1,20 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import { Link } from "react-router-dom";
 import { Heart, ShoppingCart, UserCircle } from "phosphor-react";
-import { Dropdown, Icon } from "semantic-ui-react";
 import { fetchCategories } from "../api/spring/fetchCategories";
 import { fetchFandoms } from "../api/spring/fetchFandoms";
 import "./NavBar.css";
 
 const NavBar = () => {
-  const [isSearchVisible, setSearchVisible] = useState(true);
+  const [_, setSearchVisible] = useState(true);
   const [fandoms, setFandoms] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
+  // const [searchQuery, setSearchQuery] = useState("");
   const [isNavbarVisible, setNavbarVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [hoveredDropdown, setHoveredDropdown] = useState(null);
 
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const searchRef = useRef(null);
 
   const isUserLoggedIn = () => {
@@ -23,17 +22,16 @@ const NavBar = () => {
     return token !== null;
   };
 
-  const handleSearch = (event) => {
-    event.preventDefault();
-    console.log("Search submitted:", searchQuery);
-    if (searchQuery.trim() !== "") {
-      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-    }
-  };
+  // const handleSearch = (event) => {
+  //   event.preventDefault();
+  //   if (searchQuery.trim() !== "") {
+  //     navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+  //   }
+  // };
 
-  const handleIconClick = () => {
-    setSearchVisible(!isSearchVisible);
-  };
+  // const handleIconClick = () => {
+  //   setSearchVisible(!isSearchVisible);
+  // };
 
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
@@ -117,60 +115,52 @@ const NavBar = () => {
               onMouseEnter={() => handleDropdownEnter("fandom")}
               onMouseLeave={() => handleDropdownLeave()}
             >
-              <Dropdown
-                className="no-icon-dropdown"
-                text="FANDOMS"
-                open={hoveredDropdown === "fandom"}
-              >
-                <Dropdown.Menu>
-                  {fandoms && fandoms.length > 0 ? (
-                    fandoms.map((fandom) => (
-                      <Dropdown.Item
-                        as={Link}
-                        key={fandom.id}
-                        to={`/fandom/${fandom.id}`}
-                      >
-                        {fandom.name}
-                      </Dropdown.Item>
-                    ))
-                  ) : (
-                    <p>No fandoms available</p>
-                  )}
-                </Dropdown.Menu>
-              </Dropdown>
+              <div className="dropdown">
+                <button className="dropdown-button">SUBJECTS</button>
+                {hoveredDropdown === "fandom" && (
+                  <ul className="dropdown-menu">
+                    {fandoms && fandoms.length > 0 ? (
+                      fandoms.map((fandom) => (
+                        <li key={fandom.id}>
+                          <Link to={`/fandom/${fandom.id}`}>{fandom.name}</Link>
+                        </li>
+                      ))
+                    ) : (
+                      <li>No fandoms available</li>
+                    )}
+                  </ul>
+                )}
+              </div>
             </li>
             <li
               className="category-link"
               onMouseEnter={() => handleDropdownEnter("category")}
               onMouseLeave={() => handleDropdownLeave()}
             >
-              <Dropdown
-                className="no-icon-dropdown"
-                text="CATEGORY"
-                open={hoveredDropdown === "category"}
-              >
-                <Dropdown.Menu>
-                  {categories && categories.length > 0 ? (
-                    categories.map((category) => (
-                      <Dropdown.Item
-                        as={Link}
-                        key={category.id}
-                        to={`/category/${category.id}`}
-                      >
-                        {category.name}
-                      </Dropdown.Item>
-                    ))
-                  ) : (
-                    <p>No categories available</p>
-                  )}
-                </Dropdown.Menu>
-              </Dropdown>
+              <div className="dropdown">
+                <button className="dropdown-button">CATEGORY</button>
+                {hoveredDropdown === "category" && (
+                  <ul className="dropdown-menu">
+                    {categories && categories.length > 0 ? (
+                      categories.map((category) => (
+                        <li key={category.id}>
+                          <Link to={`/category/${category.id}`}>
+                            {category.name}
+                          </Link>
+                        </li>
+                      ))
+                    ) : (
+                      <li>No categories available</li>
+                    )}
+                  </ul>
+                )}
+              </div>
             </li>
             <li className="featured-link">FEATURED</li>
           </div>
 
           <div className="side-content">
-            <li>
+            {/* <li>
               <form onSubmit={handleSearch}>
                 <div className="ui search">
                   {isSearchVisible ? (
@@ -182,18 +172,16 @@ const NavBar = () => {
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                       />
-                      <Icon name="search" size="large" />
+                      <button type="submit">Search</button>
                     </div>
                   ) : (
-                    <Icon
-                      name="search"
-                      size="large"
-                      onClick={handleIconClick}
-                    />
+                    <button type="button" onClick={handleIconClick}>
+                      🔍
+                    </button>
                   )}
                 </div>
               </form>
-            </li>
+            </li> */}
             <li>
               <Link to="/wishlist">
                 <Heart size={32} />

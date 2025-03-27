@@ -1,5 +1,13 @@
 import axios from "axios";
 
+// Define the base URLs for development and production
+const DEV_API_URL = "http://localhost:8080/api"; // Ensure to add 'http://'
+const PROD_API_URL = "https://spring-boot-ecommerce.railway.internal/api"; // Ensure to add 'https://'
+
+// Determine if the environment is production or development
+const API_URL =
+  window.location.hostname === "localhost" ? DEV_API_URL : PROD_API_URL;
+
 /**
  * Fetches a list of products from the backend.
  *
@@ -8,9 +16,7 @@ import axios from "axios";
 export const fetchProducts = async () => {
   try {
     // Perform a GET request to the products endpoint
-    const response = await axios.get(
-      "spring-boot-ecommerce.railway.internal/api/products"
-    );
+    const response = await axios.get(`${API_URL}/products`);
 
     // Return the data property which contains the list of products
     return response.data;
@@ -30,9 +36,7 @@ export const fetchProducts = async () => {
  */
 export const fetchProductById = async (productId) => {
   try {
-    const response = await axios.get(
-      `spring-boot-ecommerce.railway.internal/api/products/${productId}`
-    );
+    const response = await axios.get(`${API_URL}/products/${productId}`);
     return response.data; // Return the fetched product
   } catch (error) {
     console.error(`Error fetching product with ID ${productId}:`, error);
@@ -40,11 +44,17 @@ export const fetchProductById = async (productId) => {
   }
 };
 
+/**
+ * Fetches the newest products.
+ *
+ * @returns {Promise<Array>} A promise that resolves to the array of the latest products.
+ */
 export const fetchNewestProducts = async () => {
   try {
     const allProducts = await fetchProducts();
-    return allProducts.slice(-5);
+    return allProducts.slice(-5); // Return the last 5 products
   } catch (error) {
-    console.log("Error fetching products", error);
+    console.log("Error fetching newest products", error);
+    throw error;
   }
 };

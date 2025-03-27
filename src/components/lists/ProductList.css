@@ -1,46 +1,36 @@
+.product-list {
+    padding: 20px;
+    background-color: transparent;
+}
+
 .product {
-    background: rgb(255, 255, 255);
-    border: 1px solid white;
+    background: transparent;
+    border: 1px solid #eee;
     border-radius: 10px;
     padding: 20px;
     text-align: center;
-    transition: box-shadow 0.3s;
-    color: black;
+    transition: box-shadow 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    color: black;
+    height: 100%;
+    /* This ensures that the product container takes full height */
+    min-height: 400px;
+    /* Set a minimum height to ensure all products are at least this tall */
+    box-sizing: border-box;
+    /* To account for padding inside the height calculation */
 }
 
-.product img {
+.product-image {
     max-width: 100%;
     border-radius: 5px;
 }
 
 .product:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: 0.3s ease-in;
     cursor: pointer;
-}
-
-.product h2 {
-    font-size: 13px;
-    margin-bottom: 20px;
-}
-
-.product h3 {
-    font-size: 13px;
-    margin-top: 20px;
-}
-
-.product p {
-    font-size: 13px;
-    align-self: flex-start;
-}
-
-.product-list {
-    background: rgb(247, 249, 253);
-    padding: 20px;
 }
 
 .product-description {
@@ -51,8 +41,9 @@
 }
 
 .product-description h3 {
-    font-size: 12px;
-    font-family: 'Courier New', 'Courier New', Courier, monospace;
+    font-size: 14px;
+    font-family: 'Courier New', Courier, monospace;
+    color: #555;
 }
 
 .product-info {
@@ -62,24 +53,74 @@
     width: 100%;
 }
 
-.product-info h3 {
-    font-size: 12px;
-    font-family: 'Courier New', 'Courier New', Courier, monospace;
+.product-name {
+    font-size: 16px;
     font-weight: bold;
+    color: #333;
+}
+
+.product-price {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin: 10px 0;
 }
 
 .wishlist-button {
     background: transparent;
-    border: 2px solid transparent; /* Default border transparent */
-    color: black;
+    border: none;
+    color: #333;
+    cursor: pointer;
 }
 
 .cart-button {
-    background: rgb(243, 243, 246);
-    border: 2px solid rgb(243, 243, 246);
-    color: black;
+    background: #f3f3f6;
+    border: 2px solid #f3f3f6;
+    color: #333;
     border-radius: 8px;
-    padding: 5px 10px;
+    padding: 8px 16px;
     width: 90%;
+    cursor: pointer;
+    transition: background 0.3s;
 }
-  
+
+.cart-button:hover {
+    background-color: #e0e0e0;
+}
+
+.product-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.no-products {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 20px;
+    color: #888;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .product-list {
+        padding: 10px;
+    }
+
+    .product {
+        padding: 15px;
+        min-height: 350px;
+        /* Adjust minimum height for smaller screens */
+    }
+
+    .product-name {
+        font-size: 14px;
+    }
+
+    .product-price {
+        font-size: 12px;
+    }
+
+    .cart-button {
+        width: 100%;
+    }
+}

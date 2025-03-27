@@ -1,5 +1,13 @@
 import axios from "axios";
 
+// Define the base URLs for different environments
+const DEV_API_URL = "http://localhost:8080/api"; // Local development URL
+const PROD_API_URL = "https://spring-boot-ecommerce.railway.internal/api"; // Production URL
+
+// Determine the API base URL depending on the environment
+const BASE_URL =
+  window.location.hostname === "localhost" ? DEV_API_URL : PROD_API_URL;
+
 /**
  * Fetches products by category ID.
  *
@@ -8,8 +16,9 @@ import axios from "axios";
  */
 export const fetchProductsByCategoryId = async (categoryId) => {
   try {
-    const response = await axios.get(`spring-boot-ecommerce.railway.internal
-/api/products/by-category/${categoryId}`);
+    const response = await axios.get(
+      `${BASE_URL}/products/by-category/${categoryId}`
+    );
     return response.data; // Return the list of products
   } catch (error) {
     console.error("Error fetching products by category:", error);
@@ -26,7 +35,7 @@ export const fetchProductsByCategoryId = async (categoryId) => {
 export const fetchCategoryByProductId = async (productId) => {
   try {
     const response = await axios.get(
-      `spring-boot-ecommerce.railway.internal/api/products/category-by-product/${productId}`
+      `${BASE_URL}/products/category-by-product/${productId}`
     );
     return response.data;
   } catch (error) {
@@ -43,9 +52,7 @@ export const fetchCategoryByProductId = async (productId) => {
  */
 export const fetchCategoryByCategoryId = async (categoryId) => {
   try {
-    const response = await axios.get(
-      `spring-boot-ecommerce.railway.internal/api/categories/${categoryId}`
-    ); // Adjust the endpoint URL
+    const response = await axios.get(`${BASE_URL}/categories/${categoryId}`);
     return response.data; // Return the array of categories
   } catch (error) {
     console.error("Error fetching categories:", error); // Log any errors
@@ -53,11 +60,15 @@ export const fetchCategoryByCategoryId = async (categoryId) => {
   }
 };
 
+/**
+ * Fetches a fandom by its ID.
+ *
+ * @param {number} fandomId - The ID of the fandom.
+ * @returns {Promise<Object>} A promise that resolves to the fandom object.
+ */
 export const fetchFandomByFandomId = async (fandomId) => {
   try {
-    const response = await axios.get(
-      `spring-boot-ecommerce.railway.internal/api/fandoms/${fandomId}`
-    );
+    const response = await axios.get(`${BASE_URL}/fandoms/${fandomId}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching fandoms:", error);
@@ -65,11 +76,15 @@ export const fetchFandomByFandomId = async (fandomId) => {
   }
 };
 
+/**
+ * Fetches addresses by user ID.
+ *
+ * @param {number} userId - The ID of the user.
+ * @returns {Promise<Object>} A promise that resolves to the addresses.
+ */
 export const fetchAddressesByUserId = async (userId) => {
   try {
-    const response = await axios.get(
-      `spring-boot-ecommerce.railway.internal/api/addresses/${userId}`
-    );
+    const response = await axios.get(`${BASE_URL}/addresses/${userId}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching addresses:", error);

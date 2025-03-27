@@ -4,7 +4,6 @@ import ProductList from "../../components/lists/ProductList";
 import "./Home.css";
 
 const Home = () => {
-  const [featuredProducts, setFeaturedProducts] = useState([]);
   const [newArrivals, setNewArrivals] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -12,7 +11,7 @@ const Home = () => {
     const loadProducts = async () => {
       try {
         const allProducts = await fetchProducts();
-        setFeaturedProducts(allProducts.slice(0, 5));
+        //setFeaturedProducts(allProducts.slice(0, 5));
         setNewArrivals(allProducts.slice(-5));
       } catch (error) {
         console.error("Error loading products:", error);
@@ -48,10 +47,10 @@ const Home = () => {
         </div> */}
       </div>
       {/* <SegmentListSlider segments={segmentSections} /> Use the new component */}
-      <section className="featured-products">
+      {/* <section className="featured-products">
         <h2 className="featured-title">FEATURED</h2>
         <ProductList products={featuredProducts} />
-      </section>
+      </section> */}
       <section className="new-arrivals">
         <h2 className="new-arrivals-title">NEW ARRIVALS</h2>
         <ProductList products={newArrivals} />
