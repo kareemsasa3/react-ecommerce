@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const DEV_API_URL = "http://localhost:8080/api"; // Ensure to add 'http://'
-const PROD_API_URL = "http://spring-boot-ecommerce/api";
+const PROD_API_URL =
+  "https://spring-boot-ecommerce-production-d688.up.railway.app/api";
 
 // Determine if the environment is production or development
 const API_URL =
