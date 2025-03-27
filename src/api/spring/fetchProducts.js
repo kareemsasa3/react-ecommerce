@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Define the base URLs for development and production
 const DEV_API_URL = "http://localhost:8080/api"; // Ensure to add 'http://'
-const PROD_API_URL = "https://spring-boot-ecommerce.railway.internal/api"; // Ensure to add 'https://'
+const PROD_API_URL = "spring-boot-ecommerce/api";
 
 // Determine if the environment is production or development
 const API_URL =
@@ -16,6 +16,7 @@ const API_URL =
 export const fetchProducts = async () => {
   try {
     // Perform a GET request to the products endpoint
+    console.log("API_URL", API_URL);
     const response = await axios.get(`${API_URL}/products`);
 
     // Return the data property which contains the list of products
@@ -36,6 +37,8 @@ export const fetchProducts = async () => {
  */
 export const fetchProductById = async (productId) => {
   try {
+    console.log("BASE_URL", API_URL);
+
     const response = await axios.get(`${API_URL}/products/${productId}`);
     return response.data; // Return the fetched product
   } catch (error) {
@@ -51,6 +54,7 @@ export const fetchProductById = async (productId) => {
  */
 export const fetchNewestProducts = async () => {
   try {
+    console.log("BASE_URL", API_URL);
     const allProducts = await fetchProducts();
     return allProducts.slice(-5); // Return the last 5 products
   } catch (error) {

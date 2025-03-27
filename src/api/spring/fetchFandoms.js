@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const DEV_API_URL = "http://localhost:8080/api"; // Ensure to add 'http://'
-const PROD_API_URL = "https://spring-boot-ecommerce.railway.internal/api"; // Ensure to add 'https://'
+const PROD_API_URL = "spring-boot-ecommerce/api"; // Ensure to add 'https://'
 
 // Determine if the environment is production or development
 const API_URL =
@@ -14,6 +14,8 @@ const API_URL =
  */
 export const fetchFandoms = async () => {
   try {
+    console.log("BASE_URL", API_URL);
+
     const response = await axios.get(`${API_URL}/fandoms/`); // Adjust the endpoint URL
     return response.data; // Return the array of categories
   } catch (error) {

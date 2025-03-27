@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Define the base URLs for different environments
 const DEV_API_URL = "http://localhost:8080/api"; // Local development URL
-const PROD_API_URL = "https://spring-boot-ecommerce.railway.internal/api"; // Production URL
+const PROD_API_URL = "spring-boot-ecommerce/api"; // Production URL
 
 // Determine the API base URL depending on the environment
 const BASE_URL =
@@ -16,6 +16,7 @@ const BASE_URL =
  */
 export const fetchProductsByCategoryId = async (categoryId) => {
   try {
+    console.log("BASE_URL", BASE_URL);
     const response = await axios.get(
       `${BASE_URL}/products/by-category/${categoryId}`
     );
@@ -34,6 +35,7 @@ export const fetchProductsByCategoryId = async (categoryId) => {
  */
 export const fetchCategoryByProductId = async (productId) => {
   try {
+    console.log("BASE_URL", BASE_URL);
     const response = await axios.get(
       `${BASE_URL}/products/category-by-product/${productId}`
     );
@@ -52,6 +54,7 @@ export const fetchCategoryByProductId = async (productId) => {
  */
 export const fetchCategoryByCategoryId = async (categoryId) => {
   try {
+    console.log("BASE_URL", BASE_URL);
     const response = await axios.get(`${BASE_URL}/categories/${categoryId}`);
     return response.data; // Return the array of categories
   } catch (error) {
@@ -68,6 +71,7 @@ export const fetchCategoryByCategoryId = async (categoryId) => {
  */
 export const fetchFandomByFandomId = async (fandomId) => {
   try {
+    console.log("BASE_URL", BASE_URL);
     const response = await axios.get(`${BASE_URL}/fandoms/${fandomId}`);
     return response.data;
   } catch (error) {
