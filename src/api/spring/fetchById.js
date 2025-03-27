@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Define the base URLs for different environments
 const DEV_API_URL = "http://localhost:8080/api"; // Local development URL
-const PROD_API_URL = "https://spring-boot-ecommerce/api"; // Production URL
+const PROD_API_URL = "http://spring-boot-ecommerce/api"; // Production URL
 
 // Determine the API base URL depending on the environment
 const BASE_URL =
